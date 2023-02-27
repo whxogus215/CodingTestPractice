@@ -43,6 +43,5 @@ public class No10451 {
         if (visited[start] == 1) return ;
         visited[start] = 1;
         DFS(list, list[start].get(0));
-
     }
 }

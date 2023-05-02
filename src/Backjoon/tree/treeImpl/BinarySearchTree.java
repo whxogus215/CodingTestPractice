@@ -105,4 +105,77 @@ public class BinarySearchTree<E> {
         return null;
     }
 
+
+    /**
+     * 
+     * @param node 삭제되는 노드(= 대체되는 노드)
+     * @return 대체할 노드
+     */
+    private Node<E> getSuccessorAndUnlink(Node<E> node) {
+        Node<E> currentParent = node; // 삭제되는 노드
+        Node<E> current = node.right; // 왼쪽 노드와 오른쪽 노드 중 오른쪽 노드로 선택함, 대체될 노드
+
+        if (current.left == null) {
+            currentParent.right = current.right;
+            if (currentParent.right != null) { // 대체될 노드의 연결을 해제하고, 새로운 연결관계를 만듦
+                currentParent.right.parent = currentParent;
+            }
+            current.right = null;
+            return current;
+         }
+
+        while (current.left != null) {
+            currentParent = current;
+            current = current.left;
+        }
+        
+        currentParent.left = current.right;
+        if (currentParent.left != null) {
+            currentParent.left.parent = currentParent; // 만약 null이면 null인 상태로 놔두면 됨
+        }
+        current.right = null; // 대체될 노드의 모든 링크 끊기
+        return current;
+    }
+
+    /**
+     * @param node 삭제 할 노드
+     * @return 삭제 후 대체 되고 난 뒤의 해당 위치의 노드를 반환
+     */
+    private Node<E> deleteNode(Node<E> node) {
+        if (node != null) {
+            if (node.left == null && node.right == null) {
+                if (node == root) {
+                    root = null;
+                }
+                else {
+                    node = null;
+                }
+                return null;
+            }
+        }
+
+        if (node.left != null && node.right != null) {
+            Node<E> replacement = getSuccessorAndUnlink(node); // 삭제할 노드를 대체할 노드
+            
+            node.value = replacement.value; // 노드 값 대체
+        } else if (node.left != null) {
+            if (node == root) {
+                node = node.left;
+                root = node;
+                root.parent = null;
+            } else {
+                node = node.left;
+            }
+        } else {
+            if (node == root) {
+                node = node.right;
+                root = node;
+                root.parent = null;
+            } else {
+                node = node.right;
+            }
+        }
+
+        return node;
+    }
 }

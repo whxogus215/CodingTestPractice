@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int inorderArr[100001];
-int postorderArr[100001];
+int inorderArr[100000];
+int postorderArr[100000];
 
 void DFS(int start1, int end1, int start2, int end2){
 	if (start1 > end1 || start2 > end2) return;

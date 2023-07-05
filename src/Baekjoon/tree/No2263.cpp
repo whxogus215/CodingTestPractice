@@ -18,9 +18,10 @@ void DFS(int start1, int end1, int start2, int end2){
 	
 	int leftCount = rootIndex - start1;
 	
+	// 전위 탐색으로 출력 (루트 -> 왼쪽 -> 오른쪽) 
 	cout << root << " ";
-	DFS(start1, rootIndex - 1, start2, start2 + leftCount - 1);
-	DFS(rootIndex + 1, end1, start2 + leftCount, end2 - 1);
+	DFS(start1, rootIndex - 1, start2, start2 + leftCount - 1); // 루트를 기준으로 왼쪽 영역에 대해 탐색 (Inorder 범위 및 Postorder 범위 지정) 
+	DFS(rootIndex + 1, end1, start2 + leftCount, end2 - 1); // // 루트를 기준으로 오른쪽 영역에 대해 탐색 (Inorder 범위 및 Postorder 범위 지정) 
 
 }
 

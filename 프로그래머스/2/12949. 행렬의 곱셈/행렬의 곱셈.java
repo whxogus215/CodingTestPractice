@@ -6,15 +6,18 @@ class Solution {
      * 3. 곱해진 값들끼리 더해서 최종 값을 answer의 i행 j열에 추가한다.
      */
     public int[][] solution(int[][] arr1, int[][] arr2) {
-        int[][] answer = new int[arr1.length][arr2[0].length];
-        for (int i = 0; i < answer.length; i++) {
-            for (int j = 0; j < answer[i].length; j++) {
-                int sum = 0;
-                // arr1의 열 개수만큼 반복
-                for (int k = 0; k < arr1[0].length; k++) {
-                    sum += (arr1[i][k] * arr2[k][j]);
+        int r1 = arr1.length;
+        int c1 = arr1[0].length;
+        int r2 = arr2.length;
+        int c2 = arr2[0].length;
+
+
+        int[][] answer = new int[r1][c2];
+        for (int i = 0; i < r1; i++) {
+            for (int j = 0; j < c2; j++) {
+                for (int k = 0; k < c1; k++) {
+                    answer[i][j] += arr1[i][k] * arr2[k][j];
                 }
-                answer[i][j] = sum;
             }
         }
         return answer;

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,21 +22,30 @@ class Solution {
             {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
         };
 
-        Map<Integer, Integer> map = new HashMap<>();
+//        Map<Integer, Integer> map = new HashMap<>();
+        int[] scores = new int[3];
         for (int i = 0; i < pattern.length; i++) {
-            int result = 0;
             for (int j = 0; j < answers.length; j++) {
                 int length = pattern[i].length;
                 if (answers[j] == pattern[i][j % length]) {
-                    result += 1;
+                    scores[i] += 1;
                 }
             }
-            map.put(i + 1, result);
+//            map.put(i + 1, result);
         }
 
-        final int max = map.values().stream().mapToInt(Integer::intValue).max().getAsInt();
-        final List<Entry<Integer, Integer>> collected =
-            map.entrySet().stream().filter(e -> e.getValue().equals(max)).collect(Collectors.toList());
-        return collected.stream().map(Entry::getKey).sorted().mapToInt(Integer::intValue).toArray();
+//        final int max = map.values().stream().mapToInt(Integer::intValue).max().getAsInt();
+//        final List<Entry<Integer, Integer>> collected =
+//            map.entrySet().stream().filter(e -> e.getValue().equals(max)).collect(Collectors.toList());
+//        return collected.stream().map(Entry::getKey).sorted().mapToInt(Integer::intValue).toArray();
+
+        final int max = Arrays.stream(scores).max().getAsInt();
+        List<Integer> answer = new ArrayList<>();
+        for (int i = 0; i < scores.length; i++) {
+            if (scores[i] == max) {
+                answer.add(i + 1);
+            }
+        }
+        return answer.stream().mapToInt(Integer::intValue).toArray();
     }
 }

@@ -1,42 +1,40 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 class Solution {
 
     /**
-     * 1. 각 수포자의 정답 패턴을 일차원 배열로 저장한다.
-     * 2. 정답 배열의 요소와 수포자의 정답 패턴의 요소를 비교한다.
-     * - 정답일 경우, 해당 수포자의 점수 +1
-     * - 오답일 경우, Pass
-     * 3. 수포자의 정답 패턴 길이가 N이면 i번째의 정답은 정답 패턴의 (i % N) 번째와 비교해야 한다.
+     * i번째 문제의 정답은 i % N (N은 패턴의 개수)번째와 비교한다.
+     * 각 수포자별로, 문제를 비교한 후 총점을 계산한다.
+     * 최대 점수를 구한다.
+     * 최대 점수와 같은 번호를 뽑는다.
+     * 번호를 오룸차순으로 정렬하여 반환한다.
      */
     public int[] solution(int[] answers) {
-        List<List<Integer>> math = new ArrayList<>();
-        math.add(List.of(1, 2, 3, 4, 5));
-        math.add(List.of(2, 1, 2, 3, 2, 4, 2, 5));
-        math.add(List.of(3, 3, 1, 1, 2, 2, 4, 4, 5, 5));
+        int[][] pattern = new int[][]{
+            {1, 2, 3, 4, 5},
+            {2, 1, 2, 3, 2, 4, 2, 5},
+            {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
+        };
 
-        List<Integer> scores = new ArrayList<>();
-        for (List<Integer> m : math) {
-            int score = 0;
-            int length = m.size();
-            for (int i = 0; i < answers.length; i++) {
-                if (answers[i] == m.get(i % length)) {
-                    score++;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < pattern.length; i++) {
+            int result = 0;
+            for (int j = 0; j < answers.length; j++) {
+                int length = pattern[i].length;
+                if (answers[j] == pattern[i][j % length]) {
+                    result += 1;
                 }
             }
-            scores.add(score);
+            map.put(i + 1, result);
         }
 
-        int maxScore = scores.stream().mapToInt(Integer::intValue).max().getAsInt();
-        ArrayList<Integer> answer = new ArrayList<>();
-        for (int i = 0; i < scores.size(); i++) {
-            if (scores.get(i) == maxScore) {
-                answer.add(i + 1);
-            }
-        }
-        Collections.sort(answer);
-        return answer.stream().mapToInt(Integer::intValue).toArray();
+        final int max = map.values().stream().mapToInt(Integer::intValue).max().getAsInt();
+        final List<Entry<Integer, Integer>> collected =
+            map.entrySet().stream().filter(e -> e.getValue().equals(max)).collect(Collectors.toList());
+        return collected.stream().map(Entry::getKey).sorted().mapToInt(Integer::intValue).toArray();
     }
 }

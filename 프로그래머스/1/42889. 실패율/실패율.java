@@ -21,7 +21,7 @@ class Solution {
         Map<Integer, Double> ratio = new HashMap<>();
 
         for (int i = 1; i <= N; i++) {
-            if (stageArr[i] == 0) {
+            if (stageArr[i] == 0 || total == 0) { // 0으로 나누었을 경우, NaN이 발생하는 문제를 해결하기 위한 조건문
                 ratio.put(i, 0.);
             } else {
                 ratio.put(i,(double) stageArr[i] / total);

@@ -44,7 +44,6 @@ public class Main {
     public static int getIndex(int[] arrN1, int[] arrN2) {
         for(int i = 0; i < arrN1.length; i++) {
             if (arrN1[i] == arrN2[0]) {
-                System.out.println(i);
                 return i;
             }
         }

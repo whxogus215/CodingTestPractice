@@ -9,6 +9,14 @@ public class Main {
         int[] arrN1 = new int[n1];
         int[] arrN2 = new int[n2];
 
+        for(int i = 0; i < arrN1.length; i++) {
+            arrN1[i] = sc.nextInt();
+        }
+
+        for(int i = 0; i < arrN2.length; i++) {
+            arrN2[i] = sc.nextInt();
+        }
+
         System.out.println(isContinue(arrN1, arrN2));
     }
 

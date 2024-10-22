@@ -37,6 +37,7 @@ public class Main {
             if (arrN2[i] != arrN1[j]) {
                 return false;
             }
+            j++;
         }
         return true;                            
     }

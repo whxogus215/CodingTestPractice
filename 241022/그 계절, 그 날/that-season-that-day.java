@@ -32,11 +32,21 @@ public class Main {
     }
 
     public static boolean isYoon(int Year) {
-        if (Year % 4 == 0 && Year % 100 == 0 && Year % 400 == 0) {
-            return true;
-        } else if (Year % 4 == 0 && Year % 100 == 0) {
+        // if (Year % 4 == 0 && Year % 100 == 0 && Year % 400 == 0) {
+        //     return true;
+        // } else if (Year % 4 == 0 && Year % 100 == 0) {
+        //     return false;
+        // } else if (Year % 4 == 0) {
+        //     return true;
+        // }
+        // return false;
+        if (Year % 4 != 0) {
             return false;
-        } else if (Year % 4 == 0) {
+        }
+        if (Year % 100 != 0) {
+            return true;
+        }
+        if (Year % 400 == 0) {
             return true;
         }
         return false;

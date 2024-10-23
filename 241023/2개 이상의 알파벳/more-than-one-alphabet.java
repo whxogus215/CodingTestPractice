@@ -18,9 +18,9 @@ public class Main {
         char value = ' ';
         int index = 0;
         arr[0] = input.charAt(0);
-        A:for(int i = 1; i < input.length(); i++) {
+        for(int i = 1; i < input.length(); i++) {
             value = input.charAt(i);
-            for(int j = 0; j < index + 1; j++) {
+            A:for(int j = 0; j < index + 1; j++) {
                 if (arr[j] == value) {
                     break A;
                 }

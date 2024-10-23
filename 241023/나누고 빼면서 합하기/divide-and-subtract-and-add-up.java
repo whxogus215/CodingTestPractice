@@ -19,12 +19,14 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
+        sum();
+
         System.out.println(sum);
     }
 
     public static void sum() {
-        while (m != 1) {
-            sum += arr[m + 1];
+        while (m > 0) {
+            sum += arr[m - 1];
             if (m % 2 == 0) {
                 m /= 2;
             } else {

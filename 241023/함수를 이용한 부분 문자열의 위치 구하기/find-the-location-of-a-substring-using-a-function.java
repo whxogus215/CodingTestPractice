@@ -15,7 +15,7 @@ public class Main {
     }
 
     public static int isContain() {
-        for(int i = 0; i <= input.length() - 2; i++) {
+        for(int i = 0; i <= input.length() - object.length(); i++) {
             if (object.equals(input.substring(i, i + object.length()))) {
                 return i;
             }

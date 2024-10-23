@@ -25,7 +25,7 @@ public class Main {
     }
 
     public static void sum() {
-        while (m > 0) {
+        while (m >= 1) {
             sum += arr[m - 1];
             if (m % 2 == 0) {
                 m /= 2;

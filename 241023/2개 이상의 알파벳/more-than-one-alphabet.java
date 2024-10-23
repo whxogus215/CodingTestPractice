@@ -28,7 +28,7 @@ public class Main {
             arr[++index] = value;
         }
 
-        if (arr.length >= 2) {
+        if (index + 1 >= 2) {
             return true;
         }
         return false;

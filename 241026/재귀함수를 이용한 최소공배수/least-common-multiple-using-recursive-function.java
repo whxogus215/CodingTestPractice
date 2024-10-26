@@ -14,32 +14,24 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        System.out.println(lcs(arr[0], 1));
+        System.out.println(getLCMAll(n - 1));
     }
 
-    public static int lcs(int standard, int index) {
-        if (index == n) {
-            return standard;
+    // index번째 까지 인덱스의 숫자 중에 가장 큰 값을 반환한다.
+    public static int getLCMAll(int index) {
+        if (index == 0) {
+            return arr[0];
         }
-
-        if (standard > arr[index] && standard % arr[index] == 0) {
-            return lcs(standard, index + 1);
-        }
-
-        if (arr[index] > standard && arr[index] % standard == 0) {
-            return lcs(arr[index], index + 1);
-        }
-
-        return lcs(standard * arr[index] / mcs(standard, arr[index]), index + 1);
+        return lcm(getLCMAll(index - 1), arr[index]);
     }
 
-    public static int mcs(int first, int second) {
+    public static int lcm(int a, int b) {
         int result = 1;
-        for(int i = 1; i <= Math.min(first, second); i++) {
-            if (first % i == 0 && second % i == 0) {
+        for(int i = 1; i <= Math.min(a, b); i++) {
+            if (a % i == 0 && b % i == 0) {
                 result = i;
             }
         }
-        return result;
+        return a * b / result;
     }
 }

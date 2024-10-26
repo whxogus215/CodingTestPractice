@@ -14,9 +14,6 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        if (n == 1) {
-            System.out.println(arr[0]);
-        }
         System.out.println(maxiest(arr[0], 1));
     }
 

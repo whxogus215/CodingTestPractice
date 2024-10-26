@@ -29,7 +29,17 @@ public class Main {
         if (arr[index] > standard && arr[index] % standard == 0) {
             return lcs(arr[index], index + 1);
         }
-        
-        return lcs(standard * arr[index], index + 1);
+
+        return lcs(standard * arr[index] / mcs(standard, arr[index]), index + 1);
+    }
+
+    public static int mcs(int first, int second) {
+        int result = 1;
+        for(int i = 1; i <= Math.min(first, second); i++) {
+            if (first % i == 0 && second % i == 0) {
+                result = i;
+            }
+        }
+        return result;
     }
 }

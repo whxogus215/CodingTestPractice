@@ -11,7 +11,7 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        Arrays.sort(arr);
+        Arrays.sort(arr, 0, N);
 
         System.out.println(arr[k-1]);
     }

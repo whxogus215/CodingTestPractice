@@ -13,16 +13,9 @@ public class Main {
             people[i] = new Person(name, bungi, city);
         }
 
-        String[] names = new String[n];
-        for(int i = 0; i < n; i++) {
-            names[i] = people[i].name;
-        }
-
-        Arrays.sort(names);
-
         int index = 0;
-        for(int i = 0; i < n; i++) {
-            if (names[n - 1].equals(people[i].name)) {
+        for(int i = 1; i < n; i++) {
+            if (people[i].name.compareTo(people[index].name) > 0) {
                 index = i;
                 break;
             }

@@ -20,9 +20,17 @@ public class Main {
 
         Arrays.sort(names);
 
-        System.out.println("name " + people[n - 1].name);
-        System.out.println("addr " + people[n - 1].bungi);
-        System.out.println("city " + people[n - 1].city);
+        int index = 0;
+        for(int i = 0; i < n; i++) {
+            if (names[n - 1].equals(people[i].name)) {
+                index = i;
+                break;
+            }
+        }
+
+        System.out.println("name " + people[index].name);
+        System.out.println("addr " + people[index].bungi);
+        System.out.println("city " + people[index].city);
     }
 }
 

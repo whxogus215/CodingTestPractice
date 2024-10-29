@@ -17,7 +17,6 @@ public class Main {
         for(int i = 1; i < n; i++) {
             if (people[i].name.compareTo(people[index].name) > 0) {
                 index = i;
-                break;
             }
         }
 

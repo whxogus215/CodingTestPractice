@@ -13,11 +13,12 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        int[] sortedArr = Arrays.copyOf(arr, n);
-        Arrays.sort(sortedArr);
+        int[] sortedArr = Arrays.copyOf(arr, n + 1);
 
         for(int i = 1; i <= n; i++) {
+            sortedArr[i] = arr[i];
             if (i % 2 != 0) {
+                Arrays.sort(sortedArr);
                 System.out.print(sortedArr[i/2 + 1] + " ");
             }
         }

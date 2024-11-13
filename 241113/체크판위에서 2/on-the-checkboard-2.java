@@ -23,8 +23,8 @@ public class Main {
         }
 
         for(int i = 1; i < R - 2; i++) {
-            char before = map[0][0];
             for(int j = 1; j < C - 2; j++) {
+                char before = map[0][0];
                 if (map[i][j] != before) {
                     before = map[i][j];
                     for(int k = i + 1; k < R - 1; k++) {

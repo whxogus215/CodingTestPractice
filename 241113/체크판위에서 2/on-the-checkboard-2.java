@@ -17,6 +17,11 @@ public class Main {
 
         int count = 0;
 
+        if (map[0][0] == map[R - 1][C - 1]) {
+            System.out.println(count);
+            return;
+        }
+
         for(int i = 1; i < R - 2; i++) {
             char before = map[0][0];
             for(int j = 1; j < C - 2; j++) {

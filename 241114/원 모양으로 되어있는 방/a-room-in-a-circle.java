@@ -20,7 +20,7 @@ public class Main {
                 if (i < j) {
                     sum += (j - i) * arr[j];
                 } else {
-                    sum += ((i - j) + (N - i)) * arr[j];
+                    sum += ((N - i + 1) + (j - 1)) * arr[j];
                 }
             }
             minDistance = Math.min(minDistance, sum);

@@ -25,7 +25,11 @@ public class Main {
             }
         }
 
-        System.out.println(max);
+        if (max == Integer.MIN_VALUE) {
+            System.out.println(-1);
+        } else {
+            System.out.println(max);    
+        }
     }
 
     private static int getDigits(int first, int second, int third) {

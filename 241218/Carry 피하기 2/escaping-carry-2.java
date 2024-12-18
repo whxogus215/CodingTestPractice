@@ -4,7 +4,7 @@ public class Main {
     
     private static int[] arr = new int[20];
     private static int N;
-    private static int max = Integer.MIN_VALUE;
+    private static int max = -1;
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -25,11 +25,7 @@ public class Main {
             }
         }
 
-        if (max == Integer.MIN_VALUE) {
-            System.out.println(-1);
-        } else {
-            System.out.println(max);    
-        }
+        System.out.println(max);    
     }
 
     private static int getDigits(int first, int second, int third) {

@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int S = sc.nextInt();
+        N = sc.nextInt();
+        S = sc.nextInt();
 
         for(int i = 0; i < N; i++) {
             numbers[i] = sc.nextInt();
@@ -18,14 +18,14 @@ public class Main {
 
         for(int i = 0; i < N - 1; i++) {
             for(int j = i + 1; j < N; j++) {
-                min = Math.min(min, Math.abs(S - getSumIgnore(numbers[i], numbers[j], N)));
+                min = Math.min(min, Math.abs(S - getSumIgnore(numbers[i], numbers[j])));
             }
         }
 
         System.out.println(min);
     }
 
-    private static int getSumIgnore(int first, int second, int N) {
+    private static int getSumIgnore(int first, int second) {
         int sum = 0;
         for(int i = 0; i < N; i++) {
             if (numbers[i] == first || numbers[i] == second) {

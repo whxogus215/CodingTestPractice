@@ -49,7 +49,7 @@ public class Main {
                 return 0;
             }
             cy = ny;
-            cx = cx;
+            cx = nx;
             count--;
         }
         return 1;

@@ -46,7 +46,7 @@ public class Main {
                 // 한 방향으로 4번 탐색
                 int ny = cy + dy[i];
                 int nx = cx + dx[i];
-                if (badook[ny][nx] != dol) {
+                if (badook[ny][nx] != dol || isNotBound(ny, nx)) {
                     break;
                 }
                 cy = ny;
@@ -59,5 +59,9 @@ public class Main {
             }
         }
         return false;
+    }
+
+    private static boolean isNotBound(int y, int x) {
+        return y < 0 || y >= SIZE || x < 0 || x >= SIZE;
     }
 }

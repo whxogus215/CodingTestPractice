@@ -18,7 +18,7 @@ public class Main {
         }
 
         int max = 0;
-        for(int i = 1; i <= N; i++) {
+        for(int i = 1; i <= MAX_N; i++) {
             int sum = 0;
             for(int j = i - K; j <= i + K; j++) {
                 if (j < 1 || j > MAX_N) {

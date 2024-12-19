@@ -4,12 +4,13 @@ public class Main {
 
     private static final int MAX_LEN = 100;
     private static int[] arrA = new int[MAX_LEN];
+    private static int[] arrB = new int[MAX_LEN];
+    private static int[] copy = new int[MAX_LEN];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int M = sc.nextInt();
-        int[] arrB = new int[M];
 
         for(int i = 0; i < N; i++) {
             arrA[i] = sc.nextInt();
@@ -17,16 +18,15 @@ public class Main {
         for(int i = 0; i < M; i++) {
             arrB[i] = sc.nextInt();
         }
-        Arrays.sort(arrB);
+        Arrays.sort(arrB, 0, M);
         
         int count = 0;
         for(int i = 0; i <= N - M; i++) {
-            int[] copy = new int[M];
             int index = 0;
             for(int j = i; j < i + M; j++) {
                 copy[index++] = arrA[j];
             }
-            Arrays.sort(copy);
+            Arrays.sort(copy, 0, M);
 
             if (Arrays.equals(copy, arrB)) {
                 count++;

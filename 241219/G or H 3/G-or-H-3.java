@@ -2,7 +2,8 @@ import java.util.*;
 
 public class Main {
     
-    private static char[] arr = new char[10001];
+    private static int MAX_N = 10001;
+    private static char[] arr = new char[MAX_N];
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -18,7 +19,7 @@ public class Main {
         }
 
         int maxScore = 0;
-        for(int i = 1; i + k <= maxIndex; i++) {
+        for(int i = 1; i + K < MAX_N; i++) {
             int totalScore = 0;
             for(int j = i; j <= i + K; j++) {
                 if (arr[j] == 'G') {

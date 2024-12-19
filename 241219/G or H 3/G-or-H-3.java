@@ -18,7 +18,7 @@ public class Main {
         }
 
         int maxScore = 0;
-        for(int i = 1; i <= maxIndex; i++) {
+        for(int i = 1; i + k <= maxIndex; i++) {
             int totalScore = 0;
             for(int j = i; j <= i + K; j++) {
                 if (arr[j] == 'G') {

@@ -18,13 +18,15 @@ public class Main {
         }
 
         int max = 0;
-        for(int i = 1; i <= MAX_N - 2 * K; i++) {
+        int i;
+        for(i = 1; i <= MAX_N - 2 * K; i++) {
             int sum = 0;
             for(int j = i; j <= i + 2 * K; j++) {
                 sum += basket[j];
             }
             max = Math.max(sum, max);
         }
+        System.out.println("마지막으로 탐색된 인덱스 : " + (i - 1));
 
         System.out.println(max);
     }

@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     
     private static final int MAX_N = 100;
-    private static double[] arr = new double[MAX_N];
+    private static int[] arr = new int[MAX_N];
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -15,11 +15,11 @@ public class Main {
         int count = 0;
         for(int i = 0; i < N; i++) {
             for(int j = i; j < N; j++) {
-                double sum = 0;                
+                int sum = 0;                
                 for(int k = i; k <= j; k++) {
                     sum += arr[k];
                 }
-                double avg = sum / (j - i + 1);
+                double avg = (double) sum / (j - i + 1);
                 if (isContain(avg, i, j)) {
                     count++;
                 }
@@ -34,7 +34,7 @@ public class Main {
 
     private static boolean isContain(double avg, int start, int end) {
         for(int i = start; i <= end; i++) {
-            if (arr[i] == avg) {
+            if ((double) arr[i] == avg) {
                 return true;
             }
         }

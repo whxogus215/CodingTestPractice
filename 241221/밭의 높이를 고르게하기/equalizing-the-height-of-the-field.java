@@ -16,7 +16,7 @@ public class Main {
         }
 
         int minPrice = Integer.MAX_VALUE;
-        for(int i = 1; i <= N; i++) {
+        for(int i = 1; i + T - 1<= N; i++) {
             int sum = 0;
             for(int j = i; j <= i + T - 1; j++) {
                 if ((i + T - 1) > N) {

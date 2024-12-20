@@ -17,16 +17,14 @@ public class Main {
 
         int minPrice = Integer.MAX_VALUE;
         for(int i = 1; i <= N; i++) {
-            for(int j = T - 1; j + 1 <= Math.min(N, 10); j++) {
-                if ((i + j) > MAX_N) {
+            int sum = 0;
+            for(int j = i; j <= i + T - 1; j++) {
+                if ((i + T - 1) > MAX_N) {
                     continue;
                 }
-                int sum = 0;
-                for(int k = i; k <= i + j; k++) {
-                    sum += Math.abs(heights[k] - H);
-                }
-                minPrice = Math.min(sum, minPrice);
+                sum += Math.abs(heights[j] - H);
             }
+            minPrice = Math.min(sum, minPrice);
         }
         System.out.println(minPrice);
     }

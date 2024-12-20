@@ -19,7 +19,7 @@ public class Main {
         for(int i = 1; i <= N; i++) {
             int sum = 0;
             for(int j = i; j <= i + T - 1; j++) {
-                if ((i + T - 1) > MAX_N) {
+                if ((i + T - 1) > N) {
                     continue;
                 }
                 sum += Math.abs(heights[j] - H);

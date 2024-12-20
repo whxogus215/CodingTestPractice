@@ -17,7 +17,7 @@ public class Main {
 
         int minPrice = Integer.MAX_VALUE;
         for(int i = 1; i <= N; i++) {
-            for(int j = T - 1; j <= Math.min(N, 10); j++) {
+            for(int j = T - 1; i + j <= Math.min(N, 10); j++) {
                 if ((i + j) > MAX_N) {
                     continue;
                 }

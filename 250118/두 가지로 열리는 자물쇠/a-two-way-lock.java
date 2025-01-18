@@ -30,16 +30,16 @@ public class Main {
     }
 
     public static boolean isSatisfied(int i, int j, int k) {
-        if (getMin(a1, i) <= 2 && getMin(b1, j) <= 2 && getMin(c1, k) <= 2) {
+        if ((getAbs(a1, i) <= 2 || getAbs(a1, i) >= N - 2) && (getAbs(b1, j) <= 2 || getAbs(b1, j) >= N - 2) && (getAbs(c1, k) <= 2 || getAbs(c1, k) >= N - 2)) {
             return true;
         }
-        if (getMin(a2, i) <= 2 && getMin(b2, j) <= 2 && getMin(c2, k) <= 2) {
+        if ((getAbs(a2, i) <= 2 || getAbs(a2, i) >= N - 2) && (getAbs(b2, j) <= 2 || getAbs(b2, j) >= N - 2) && (getAbs(c2, k) <= 2 || getAbs(c2, k) >= N - 2)) {
             return true;
         }
         return false;
     }
 
-    public static int getMin(int standard, int value) {
-        return Math.min(Math.abs(standard + N - value), Math.abs(standard - value));
+    public static int getAbs(int standard, int value) {
+        return Math.abs(standard - value);
     }
 }

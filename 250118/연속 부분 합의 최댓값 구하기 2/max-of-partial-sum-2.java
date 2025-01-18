@@ -21,6 +21,6 @@ public class Main {
             ans = Math.max(ans, sum);
         }
 
-        System.out.println(sum);
+        System.out.println(ans);
     }
 }

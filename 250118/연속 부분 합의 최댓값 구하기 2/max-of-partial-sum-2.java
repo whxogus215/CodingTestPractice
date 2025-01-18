@@ -9,14 +9,16 @@ public class Main {
         for(int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-
+        
+        int ans = Integer.MAX_VALUE;
         int sum = 0;
         for(int i = 0; i < n; i++) {
-            if (sum < 0 && sum < arr[i]) {
+            if (sum < 0) {
                 sum = arr[i];
-                continue;
+            } else {
+                sum += arr[i];    
             }
-            sum += arr[i];
+            ans = Math.max(ans, sum);
         }
 
         System.out.println(sum);

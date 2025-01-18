@@ -17,8 +17,8 @@ public class Main {
         int cnt = 0;
         for(int i = n - 1; i >= 0; i--) {
             while (k >= coins[i]) {
-                k -= coins[i];
-                cnt++;
+                cnt += k / coins[i];
+                k %= coins[i];
             }
         }
         System.out.println(cnt);

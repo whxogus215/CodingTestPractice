@@ -11,9 +11,9 @@ public class Main {
         }
 
         Arrays.sort(arr, (a, b) -> {
-            Integer ab = Integer.parseInt(a + "" + b);
-            Integer ba = Integer.parseInt(b + "" + a);
-            return ba - ab;
+            String ab = a + "" + b;
+            String ba = b + "" + a;
+            return ba.compareTo(ab);
         });
 
         StringBuilder sb = new StringBuilder();

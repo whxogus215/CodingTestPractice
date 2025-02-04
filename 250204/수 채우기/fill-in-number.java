@@ -8,7 +8,7 @@ public class Main {
 
         for (int i = 0; i <= 2000; i++) {
             int remainder = n - (5 * i);
-            if (remainder >= 2 && remainder % 2 == 0) {
+            if (remainder >= 0 && remainder % 2 == 0) {
                 result = Math.min(result, i + (remainder / 2));
             }
         }

@@ -14,47 +14,16 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        int minValue = MAX + 1;
-        int maxValue = 0;
-
-        int minIndex = 0;
-        int maxIndex = 0;
-
-        int result = 0;
-
+        int minPrice = arr[0];
+        int profit = 0;
         for(int i = 0; i < n; i++) {
-            if (arr[i] <= minValue) {
-                minValue = arr[i];
-                minIndex = i;
-            }
-            if (arr[i] >= maxValue) {
-                maxValue = arr[i];
-                maxIndex = i;
+            if (arr[i] > minPrice) {
+                profit = Math.max(profit, arr[i] - minPrice);
+            } else {
+                minPrice = arr[i];
             }
         }
 
-        if (minIndex < maxIndex) {
-            result = arr[maxIndex] - arr[minIndex];
-        } else {
-            int min = arr[maxIndex];
-            for(int i = 0; i < maxIndex; i++) {
-                if (arr[i] < min) {
-                    min = arr[i];
-                }
-            }
-            int first = arr[maxIndex] - min;
-
-            int max = arr[minIndex];
-            for(int i = minIndex + 1; i < n; i++) {
-                if (arr[i] > max) {
-                    max = arr[i];
-                }
-            }
-            int second = max - arr[minIndex];
-
-            result = Math.max(first, second);
-        }
-
-        System.out.println(result);
+        System.out.println(profit);
     }
 }

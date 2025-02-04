@@ -17,8 +17,8 @@ public class Main {
         int minValue = MAX + 1;
         int maxValue = 0;
 
-        int minIndex = -1;
-        int maxIndex = -1;
+        int minIndex = 0;
+        int maxIndex = 0;
 
         int result = 0;
 

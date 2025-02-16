@@ -14,20 +14,35 @@ public class Main {
             totalSum += powers[i];
         }
         for(int i = 0; i < NUM; i++) {
-            for(int j = i + 1; j < NUM; j++) {
-                if (powers[i] == powers[j]) {
+            int first = powers[i];
+            for(int j = 0; j < NUM; j++) {
+                if (i == j) {
                     continue;
                 }
-                int firstSum = powers[i] + powers[j];
-                for(int k = j; k < NUM; k++) {
-                    if (k == j) {
+                for(int k = 0; k < NUM; k++) {
+                    if (k == j || k == i || powers[j] == powers[k]) {
                         continue;
                     }
-                    int secondSum = totalSum - firstSum - powers[k];
-                    min = Math.min(Math.min(firstSum, secondSum), powers[k]);
+                    for(int l = 0; l < NUM; l++) {
+                        if (l == k || l == j || l == i) {
+                            continue;
+                        }
+                        for(int m = 0; m < NUM; m++) {
+                            if (m == l || m == k || m == j || m == i || powers[m] == powers[l]) {
+                                continue;
+                            }
+                            int maxPower = Math.max(first, Math.max(powers[j] + powers[k], powers[l] + powers[m]));
+                            int minPower = Math.min(first, Math.min(powers[j] + powers[k], powers[l] + powers[m]));
+                            if (maxPower == minPower || maxPower == first || minPower == first) {
+                                continue;
+                            }
+                            min = Math.min(min, maxPower - minPower);
+                        }
+                    }
                 }
             }
         }
+
         if (min == Integer.MAX_VALUE) {
             System.out.println(-1);
         } else {

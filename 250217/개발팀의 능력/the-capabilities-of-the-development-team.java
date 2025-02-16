@@ -15,20 +15,17 @@ public class Main {
         }
         for(int i = 0; i < NUM; i++) {
             int first = powers[i];
-            for(int j = 0; j < NUM; j++) {
-                if (i == j) {
-                    continue;
-                }
+            for(int j = i + 1; j < NUM; j++) {
                 for(int k = 0; k < NUM; k++) {
-                    if (k == j || k == i || powers[j] == powers[k]) {
+                    if (k == j || k == i) {
                         continue;
                     }
                     for(int l = 0; l < NUM; l++) {
                         if (l == k || l == j || l == i) {
                             continue;
                         }
-                        for(int m = 0; m < NUM; m++) {
-                            if (m == l || m == k || m == j || m == i || powers[m] == powers[l]) {
+                        for(int m = l + 1; m < NUM; m++) {
+                            if (m == k || m == j || m == i) {
                                 continue;
                             }
                             int team1 = first;

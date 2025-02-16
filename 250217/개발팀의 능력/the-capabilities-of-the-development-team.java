@@ -15,9 +15,12 @@ public class Main {
         }
         for(int i = 0; i < NUM; i++) {
             int first = powers[i];
-            for(int j = i + 1; j < NUM; j++) {
-                for(int k = 0; k < NUM; k++) {
-                    if (k == j || k == i) {
+            for(int j = 0; j < NUM; j++) {
+                if (j == i) {
+                    continue;
+                }
+                for(int k = j + 1; k < NUM; k++) {
+                    if (k == i) {
                         continue;
                     }
                     for(int l = 0; l < NUM; l++) {

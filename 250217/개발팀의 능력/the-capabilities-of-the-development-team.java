@@ -31,11 +31,16 @@ public class Main {
                             if (m == l || m == k || m == j || m == i || powers[m] == powers[l]) {
                                 continue;
                             }
-                            int maxPower = Math.max(first, Math.max(powers[j] + powers[k], powers[l] + powers[m]));
-                            int minPower = Math.min(first, Math.min(powers[j] + powers[k], powers[l] + powers[m]));
-                            if (maxPower == minPower || maxPower == first || minPower == first) {
+                            int team1 = first;
+                            int team2 = powers[j] + powers[k];
+                            int team3 = powers[l] + powers[m];
+
+                            if (team1 == team2 || team1 == team3 || team2 == team3) {
                                 continue;
                             }
+
+                            int maxPower = Math.max(first, Math.max(powers[j] + powers[k], powers[l] + powers[m]));
+                            int minPower = Math.min(first, Math.min(powers[j] + powers[k], powers[l] + powers[m]));
                             min = Math.min(min, maxPower - minPower);
                         }
                     }

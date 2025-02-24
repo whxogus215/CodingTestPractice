@@ -11,9 +11,8 @@ public class Main {
 
         int max = 0;
         for(int i = 0; i < n; i++) {
-            p[i] /= 2;
-
             int[] copy = Arrays.copyOf(p, p.length);
+            copy[i] /= 2;
             Arrays.sort(copy);
 
             int price = b;
@@ -27,8 +26,6 @@ public class Main {
             }
 
             max = Math.max(max, count);
-
-            p[i] *= 2;
         }
 
         System.out.println(max);

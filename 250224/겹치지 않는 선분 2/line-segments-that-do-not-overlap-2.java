@@ -19,7 +19,7 @@ public class Main {
                     b1 = x1[j]; b2 = x2[j];
                 } else {
                     a1 = x1[j]; a2 = x2[j];
-                    b1 = x1[i]; b2 = x1[i];
+                    b1 = x1[i]; b2 = x2[i];
                 }
 
                 if (a2 > b2) {

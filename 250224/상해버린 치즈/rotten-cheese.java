@@ -9,12 +9,14 @@ public class Main {
         int S = sc.nextInt();
 
         int[] sickLogs = new int[N + 1];
+        int[] cheeses = new int[M + 1];
         int[][] eatLogs = new int[D][3];
         for(int i = 0; i < D; i++) {
             int p = sc.nextInt();
             int cheese = sc.nextInt();
             int eatTime = sc.nextInt();
 
+            cheeses[cheese]++;
             eatLogs[i] = new int[]{p, cheese, eatTime};
         }
 
@@ -36,13 +38,14 @@ public class Main {
                 if (i != cheese) {
                     continue;
                 }
-                if (eatTime < sickLogs[person] || sickLogs[person] == 0) {
+                if (eatTime < sickLogs[person]) {
                     max++;
                 }
             }
             if (max < S) {
                 continue;
             }
+            max = cheeses[i];
             maxSickPeople = Math.max(max, maxSickPeople);
         }
 

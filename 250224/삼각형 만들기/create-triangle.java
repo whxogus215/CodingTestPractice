@@ -26,7 +26,7 @@ public class Main {
                 }
             }
         }
-        System.out.println(max * 2);
+        System.out.println(max);
     }
 
     public static boolean isParellel(int i, int j, int k) {
@@ -45,6 +45,6 @@ public class Main {
         distanceX = Math.max(dx[0], Math.max(dx[1], dx[2]));
         distanceY = Math.max(dy[0], Math.max(dy[1], dy[2]));
 
-        return (distanceX * distanceY) / 2;
+        return distanceX * distanceY;
     }
 }

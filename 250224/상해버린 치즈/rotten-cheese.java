@@ -40,6 +40,9 @@ public class Main {
                     max++;
                 }
             }
+            if (max < S) {
+                continue;
+            }
             maxSickPeople = Math.max(max, maxSickPeople);
         }
 

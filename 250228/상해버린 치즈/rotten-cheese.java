@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Please write your code here.
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int M = sc.nextInt();
@@ -40,7 +39,7 @@ public class Main {
                     if (sickInfo.p != person) {
                         continue;
                     }
-                    if (isChecked[sickInfo.p] = false && sickInfo.t <= eatTime) {
+                    if (isChecked[sickInfo.p] == false && sickInfo.t <= eatTime) {
                         isRight = false;
                         break A;
                     }

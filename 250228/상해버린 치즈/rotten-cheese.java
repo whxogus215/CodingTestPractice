@@ -17,9 +17,6 @@ public class Main {
             eatInfos.add(new Info(p, m, t));
         }
 
-        // 먹은 시간 순서대로 정렬
-        Collections.sort(eatInfos, (a, b) -> a.t - b.t);
-
         List<Info> sickInfos = new ArrayList<>();
         for(int i = 0; i < S; i++) {
             int p = sc.nextInt();

@@ -25,27 +25,32 @@ public class Main {
 
         int maxPills = 0;
         for(int ch = 1; ch <= M; ch++) {
-            boolean isRight = true;
             Set<Integer> sickPeople = new HashSet<>();
-            boolean[] isChecked = new boolean[N + 1];
-            A:for(Info eatInfo : eatInfos) {
+            int[] time = new int[N + 1];
+            for(Info eatInfo : eatInfos) {
                 int cheese = eatInfo.m;
                 int person = eatInfo.p;
                 int eatTime = eatInfo.t;
                 if (cheese != ch) {
                     continue;
                 }
-                for(Info sickInfo : sickInfos) {
-                    if (sickInfo.p != person) {
-                        continue;
-                    }
-                    if (isChecked[sickInfo.p] == false && sickInfo.t <= eatTime) {
-                        isRight = false;
-                        break A;
-                    }
+                if (eatTime < time[person]) {
+                    time[person] = eatTime;
+                } else if (time[person] == 0) {
+                    time[person] = eatTime;
                 }
-                isChecked[person] = true;
                 sickPeople.add(person);
+            }
+
+            boolean isRight = true;
+            for(Info sickInfo : sickInfos) {
+                int person = sickInfo.p;
+                if (time[person] == 0) {
+                    isRight = false;
+                }
+                if (time[person] >= sickInfo.t) {
+                    isRight= false;
+                }
             }
 
             if (isRight) {

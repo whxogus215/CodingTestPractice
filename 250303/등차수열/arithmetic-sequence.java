@@ -14,20 +14,23 @@ public class Main {
             numbers[i] = sc.nextInt();
         }
 
-        int count = 0;
-        for(int i = 0; i < N; i++) {
-            for(int j = i + 1; j < N; j++) {
-                int ai = numbers[i];
-                int aj = numbers[j];
+        int maxCount = 0;
 
-                for(int k = 1; k <= 100; k++) {
+        for(int k = 1; k <= 100; k++) {
+            int count = 0;
+            for(int i = 0; i < N; i++) {
+                for(int j = i + 1; j < N; j++) {
+                    int ai = numbers[i];
+                    int aj = numbers[j];
+
                     if ((k - ai) == (aj - k)) {
                         count++;
                     }
                 }
             }
-        }
+            maxCount = Math.max(maxCount, count);
+        }    
 
-        System.out.println(count);
+        System.out.println(maxCount);
     }
 }

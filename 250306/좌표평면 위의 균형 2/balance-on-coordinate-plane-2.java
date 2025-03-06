@@ -36,9 +36,9 @@ public class Main {
                         count4++;
                     }
                 }
-                int max1 = Math.max(count1, count2);
-                int max2 = Math.max(max1, count3);
-                int maxCount = Math.max(max2, count4);
+                int maxCount = Math.max(count1, count2);
+                maxCount = Math.max(maxCount, count3);
+                maxCount = Math.max(maxCount, count4);
                 minPointCount = Math.min(minPointCount, maxCount);
             }
         }

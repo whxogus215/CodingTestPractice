@@ -8,31 +8,24 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         
-        PriorityQueue<Pair> pq = new PriorityQueue<>((p1, p2) -> {
-            return p1.number - p2.number;
-        });
+        List<Pair> pairs = new ArrayList<>();
+
         int M = 0;
         for(int i = 0; i < N; i++) {
             int count = sc.nextInt();
             int number = sc.nextInt();
-            pq.add(new Pair(count, number));
+            pairs.add(new Pair(count, number));
             M += count;
         }
 
-        Pair[] pairs = new Pair[N];
-
-        int index = 0;
-        while(!pq.isEmpty()) {
-            Pair pair = pq.poll();
-            pairs[index++] = pair;
-        }
+        Collections.sort(pairs, (p1, p2) -> p1.number - p2.number);
 
         int C = Integer.MIN_VALUE;
         int front = 0, rear = N - 1;
 
         for(int i = 0; i <= (M - 1) / 2; i++) {
-            Pair frontPair = pairs[front];
-            Pair rearPair = pairs[rear];
+            Pair frontPair = pairs.get(front);
+            Pair rearPair = pairs.get(rear);
 
             int sum = frontPair.number + rearPair.number;
             frontPair.count -= 1;

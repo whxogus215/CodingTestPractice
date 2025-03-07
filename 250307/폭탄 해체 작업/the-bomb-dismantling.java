@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Main {
     
+    public static int MAX_T = 10000;
     public static int N;
     public static Pair[] pairs;
 
@@ -25,9 +26,11 @@ public class Main {
         
         int maxScore = 0;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int t = N - 1; t >= 1; t--) {
-            if (pairs[t].time >= t) {
-                pq.add(pairs[t].score * -1);
+        int index = N - 1;
+        for(int t = MAX_T; t >= 1; t--) {
+            while(index >= 0 && pairs[index].time >= t) {
+                pq.add(pairs[index].score * -1);
+                index--;
             }
 
             if (!pq.isEmpty()) {

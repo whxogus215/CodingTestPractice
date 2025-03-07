@@ -19,22 +19,32 @@ public class Main {
             M += count;
         }
 
-        int[] numbers = new int[M];
+        Pair[] pairs = new Pair[N];
+
         int index = 0;
-        
         while(!pq.isEmpty()) {
             Pair pair = pq.poll();
-            for(int i = 1; i <= pair.count; i++) {
-                numbers[index] = pair.number;
-                index++;
-            }
+            pairs[index++] = pair;
         }
 
         int C = Integer.MIN_VALUE;
+        int front = 0, rear = N - 1;
+
         for(int i = 0; i <= (M - 1) / 2; i++) {
-            int j = (M - 1) - i;
-            
-            int sum = numbers[i] + numbers[j];
+            Pair frontPair = pairs[front];
+            Pair rearPair = pairs[rear];
+
+            int sum = frontPair.number + rearPair.number;
+            frontPair.count -= 1;
+            rearPair.count -= 1;
+
+            if (frontPair.count <= 0) {
+                front++;
+            }
+            if (rearPair.count <= 0) {
+                rear--;
+            }
+
             C = Math.max(C, sum);
         }
 

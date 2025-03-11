@@ -11,12 +11,12 @@ public class Main {
         
         PriorityQueue<Integer> redStones = new PriorityQueue<>(); // 최소 힙
         PriorityQueue<BlackStone> blackStones = new PriorityQueue<>(
-            // A를 기준으로 오름차순, A가 같으면 B를 기준으로 오름차순
+            // B를 기준으로 오름차순, B가 같으면 A를 기준으로 내림차순
             (b1, b2) -> {
-                if (b1.A == b2.A) {
-                    return b1.B - b2.B;
+                if (b1.B == b2.B) {
+                    return b2.A - b1.A;
                 }
-                return b1.A - b2.A;
+                return b1.B - b2.B;
             }
         );
 

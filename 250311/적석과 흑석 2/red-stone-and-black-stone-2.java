@@ -33,7 +33,7 @@ public class Main {
 
         int maxPair = 0;
         for(int i = 0; i < C; i++) {
-            if (blackStones.isEmpty()) {
+            if (redStones.isEmpty() || blackStones.isEmpty()) {
                 break;
             }
             int redStone = redStones.peek();

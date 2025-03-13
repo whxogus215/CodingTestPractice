@@ -32,7 +32,7 @@ public class Main {
         for(BlackStone blackStone : blackStones) {
             int a = blackStone.A;
             int b = blackStone.B;
-            int redStone = redStones.ceiling(a);
+            Integer redStone = redStones.ceiling(a);
 
             if (redStones.ceiling(a) != null) {
                 if (redStone <= b) {

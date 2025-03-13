@@ -18,12 +18,12 @@ public class Main {
         int maxCount = 0;
         for(int i = 0; i < N; i++) {
             int min = arr[i];
-            int count = 0;
+            int count = 1;
             for(int j = 0; j < N; j++) {
-                if (j == i) {
+                if (j == i || min > arr[j]) {
                     continue;
                 }
-                if (Math.abs(min - arr[j]) <= K) {
+                if ((arr[j] - min) <= K) {
                     count++;
                 }
             }

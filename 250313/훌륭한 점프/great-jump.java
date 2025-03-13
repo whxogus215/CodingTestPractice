@@ -28,11 +28,12 @@ public class Main {
     public static boolean isPossible(int max) {
         int[] available = new int[N];
         int index = 1;
-        for(int i = 1 ; i < N; i++) {
+        for(int i = 1 ; i < N - 1; i++) {
             if (arr[i] <= max) {
                 available[index++] = i; 
             }
         }
+        available[index++] = N - 1;
 
         for(int i = 1; i < index; i++) {
             if (available[i] - available[i - 1] > K) {

@@ -20,19 +20,14 @@ public class Main {
             arr[0] = i;
             isExist[i] = 1;
 
-            int startIndex = 1;
             boolean isComplete = true;
-            for(int j = 1; j <= N; j++) {
-                if (j == i) {
-                    continue;
-                }
+            for(int startIndex = 1; startIndex < N; startIndex++) {
                 arr[startIndex] = sum[startIndex - 1] - arr[startIndex - 1];
                 if (isExist[arr[startIndex]] == 1) {
                     isComplete = false;
                     break;
                 } else {
                     isExist[arr[startIndex]] = 1;
-                    startIndex++;
                 }
             }
             if (isComplete) {

@@ -41,7 +41,7 @@ public class Main {
         }
 
         for(int i = 0; i <= MAX_N; i++) {
-            if (explodeNum[i] >= maxCount) {
+            if (explodeNum[i] > 0 && explodeNum[i] >= maxCount) {
                 maxCount = explodeNum[i];
                 maxBombNum = i;
             }

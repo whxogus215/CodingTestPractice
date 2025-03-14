@@ -41,6 +41,8 @@ public class Main {
             if (count > maxCount) {
                 maxCount = count;
                 maxBombNum = num;
+            } else if (count == maxCount) {
+                maxBombNum = Math.max(maxBombNum, num);
             }
         }
 

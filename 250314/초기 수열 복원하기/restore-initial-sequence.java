@@ -27,6 +27,10 @@ public class Main {
                     break;
                 }
                 arr[startIndex] = sum[startIndex - 1] - arr[startIndex - 1];
+                if (arr[startIndex] > N) {
+                    isComplete = false;
+                    break;
+                }
                 if (isExist[arr[startIndex]] == 1) {
                     isComplete = false;
                     break;

@@ -22,12 +22,9 @@ public class Main {
 
             boolean isComplete = true;
             for(int startIndex = 1; startIndex < N; startIndex++) {
-                if (arr[startIndex - 1] >= sum[startIndex - 1]) {
-                    isComplete = false;
-                    break;
-                }
                 arr[startIndex] = sum[startIndex - 1] - arr[startIndex - 1];
-                if (arr[startIndex] > N) {
+                
+                if (arr[startIndex - 1] >= sum[startIndex - 1] || arr[startIndex] > N) {
                     isComplete = false;
                     break;
                 }

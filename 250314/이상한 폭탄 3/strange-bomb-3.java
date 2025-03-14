@@ -24,20 +24,26 @@ public class Main {
 
         for(int j = 0; j < arr.length; j++) {
             int num = arr[j];
-            int pre = -1;
-            int count = 0;
+            int index = 0;
+            int[] bombIndices = new int[N];
             for(int i = 0; i < N; i++) {
                 if (bombs[i] == num) {
-                    if (pre < 0) {
-                        pre = i;
-                        continue;
-                    }
-                    if (i - pre <= K) {
-                        count++;
-                        pre = i;
-                    }
+                    bombIndices[index++] = i;
                 }
             }
+
+            int count = 0;
+            for(int i = 0; i < index - 1; i++) {
+                int pair = 0;
+                while(i < index - 1 && bombIndices[i + 1] - bombIndices[i] <= K) {
+                    pair++;
+                    i++;
+                }
+                if (pair > 0) {
+                    count += (pair + 1);
+                }
+            }
+
             if (count > maxCount) {
                 maxCount = count;
                 maxBombNum = num;

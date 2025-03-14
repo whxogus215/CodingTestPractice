@@ -22,6 +22,10 @@ public class Main {
 
             boolean isComplete = true;
             for(int startIndex = 1; startIndex < N; startIndex++) {
+                if (arr[startIndex - 1] >= sum[startIndex - 1]) {
+                    isComplete = false;
+                    break;
+                }
                 arr[startIndex] = sum[startIndex - 1] - arr[startIndex - 1];
                 if (isExist[arr[startIndex]] == 1) {
                     isComplete = false;

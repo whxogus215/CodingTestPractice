@@ -14,9 +14,9 @@ public class Main {
         
         // 15개 중 4개의 순열을 만든다.
         for(int a = 1; a <= MAX_N; a++) {
-            for(int b = 1; b <= MAX_N; b++) {
-                for(int c = 1; c <= MAX_N; c++) {
-                    for(int d = 1; d < MAX_N; d++) {
+            for(int b = a; b <= MAX_N; b++) {
+                for(int c = b; c <= MAX_N; c++) {
+                    for(int d = c; d < MAX_N; d++) {
                         int A = a;
                         int B = b;
                         int C = c;

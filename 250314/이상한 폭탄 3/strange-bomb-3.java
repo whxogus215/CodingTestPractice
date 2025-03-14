@@ -2,9 +2,9 @@ import java.util.*;
 
 public class Main {
 
+    public static int MAX_N = 1000000;
     public static int N, K;
     public static int[] bombs;
-    public static Set<Integer> bombNumbs = new HashSet<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -14,41 +14,36 @@ public class Main {
         bombs = new int[N];
         for(int i = 0; i < N; i++) {
             bombs[i] = sc.nextInt();
-            bombNumbs.add(bombs[i]);
         }
 
         int maxBombNum = 0;
         int maxCount = 0;
 
-        Integer[] arr = bombNumbs.toArray(new Integer[bombNumbs.size()]);
+        boolean[] exploded = new boolean[N];
+        int[] explodeNum = new int[MAX_N + 1];
 
-        for(int j = 0; j < arr.length; j++) {
-            int num = arr[j];
-            int index = 0;
-            int[] bombIndices = new int[N];
-            for(int i = 0; i < N; i++) {
-                if (bombs[i] == num) {
-                    bombIndices[index++] = i;
+        for(int i = 0; i < N; i++) {
+            for(int j = i + 1; j < N; j++) {
+                if (j - i > K || bombs[i] != bombs[j]) {
+                    continue;
+                }
+
+                if (exploded[i] == false) {
+                    explodeNum[bombs[i]] += 1;
+                    exploded[i] = true;
+                }
+
+                if (exploded[j] == false) {
+                    explodeNum[bombs[j]] += 1;
+                    exploded[j] = true;
                 }
             }
+        }
 
-            int count = 0;
-            for(int i = 0; i < index - 1; i++) {
-                int pair = 0;
-                while(i < index - 1 && bombIndices[i + 1] - bombIndices[i] <= K) {
-                    pair++;
-                    i++;
-                }
-                if (pair > 0) {
-                    count += (pair + 1);
-                }
-            }
-
-            if (count > maxCount) {
-                maxCount = count;
-                maxBombNum = num;
-            } else if (count == maxCount) {
-                maxBombNum = Math.max(maxBombNum, num);
+        for(int i = 0; i <= MAX_N; i++) {
+            if (explodeNum[i] >= maxCount) {
+                maxCount = explodeNum[i];
+                maxBombNum = i;
             }
         }
 

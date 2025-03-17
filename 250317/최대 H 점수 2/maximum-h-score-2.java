@@ -31,10 +31,8 @@ public class Main {
                 }
             }
 
-            System.out.println(max + ", " + countHighMax + ", " + countMaxMinusOne);
-
             if (L == 0) {
-                if ((countHighMax + countMaxMinusOne) >= max) {
+                if (countHighMax >= max) {
                     possible = true;
                 }
             } else {

@@ -55,7 +55,7 @@ public class Main {
     }
 
     public static void combi(int searchIndex, int count) {
-        if (searchIndex == stonePairs.size() - 1) {
+        if (searchIndex == stonePairs.size()) {
             if (count == M) {
                 for(Pair pair : removePairs) {
                     graph[pair.y][pair.x] = 0;

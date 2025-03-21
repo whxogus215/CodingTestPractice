@@ -12,11 +12,16 @@ class Pair {
 
 public class Main {
 
-    public static int N, K, M;
-    public static int[][] graph;
-
     public static int[] dx = {1, 0, -1, 0};
     public static int[] dy = {0, -1, 0, 1};
+
+    public static int N, K, M;
+    public static int[][] graph;
+    public static int max;
+
+    public static List<Pair> startPairs = new ArrayList<>();
+    public static List<Pair> stonePairs = new ArrayList<>();
+    public static List<Pair> removePairs = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -28,68 +33,75 @@ public class Main {
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 graph[i][j] = sc.nextInt();
+                if (graph[i][j] == 1) {
+                    stonePairs.add(new Pair(i, j));
+                }
             }
         }
 
-        Queue<Pair> queues = new ArrayDeque<>();
-
-        int[][] visited = new int[N][N];
-        int totalCount = 0;
         for(int i = 0; i < K; i++) {
             int r = sc.nextInt() - 1;
             int c = sc.nextInt() - 1;
-            queues.add(new Pair(r, c));
-            visited[r][c] = 1;
-            totalCount++;
+            startPairs.add(new Pair(r, c));
         }
 
-        // 0인 지점을 먼저 탐색
+        updateMax();
+
+        System.out.println(max);
+    }
+
+    public static void updateMax() {
+        combi(0, 0);
+    }
+
+    public static void combi(int searchIndex, int count) {
+        if (searchIndex == stonePairs.size() - 1) {
+            if (count == M) {
+                for(Pair pair : removePairs) {
+                    graph[pair.y][pair.x] = 0;
+                }
+                BFS();
+                for(Pair pair : removePairs) {
+                    graph[pair.y][pair.x] = 1;
+                }
+            }
+            return ;
+        }
+
+        removePairs.add(stonePairs.get(searchIndex));
+        combi(searchIndex + 1, count + 1);
+        removePairs.remove(removePairs.size() - 1);
+
+        combi(searchIndex + 1, count);
+    }
+
+    public static void BFS() {
+        Queue<Pair> queues = new ArrayDeque<>();
+        int[][] visited = new int[N][N];
+        int count = 0;
+        
+        for(Pair pair : startPairs) {
+            queues.add(pair);
+            visited[pair.y][pair.x] = 1;
+            count++;
+        }
+
         while(!queues.isEmpty()) {
-            Pair pair = queues.poll();
-            int nowY = pair.y;
-            int nowX = pair.x;
+            Pair p = queues.poll();
 
             for(int i = 0; i < 4; i++) {
-                int nY = nowY + dy[i];
-                int nX = nowX + dx[i];
+                int ny = p.y + dy[i];
+                int nx = p.x + dx[i];
 
-                if (canGo(nY, nX, visited)) {
-                    visited[nY][nX] = 1;
-                    queues.add(new Pair(nY, nX));
-                    totalCount++;
+                if (canGo(ny, nx, visited)) {
+                    queues.add(new Pair(ny, nx));
+                    visited[ny][nx] = 1;
+                    count++;
                 }
             }
         }
 
-        int stoneMaxCount = 0;
-
-        // 값이 1인 지점만 탐색
-        while(!stoneQueues.isEmpty()) {
-            Pair pair = stoneQueues.poll();
-            int nowY = pair.y;
-            int nowX = pair.x;
-            int stoneCount = 1;
-
-            for(int i = 0; i < 4; i++) {
-                int nY = nowY + dy[i];
-                int nX = nowX + dx[i];
-
-                if (inRange(nY, nX) && visited[nY][nX] == 0 && isStone(nY, nX)) {
-                    stoneQueues.add(new Pair(nY, nX));
-                    stoneCount++;
-                }
-            }
-
-            stoneMaxCount = Math.max(stoneMaxCount, stoneCount);
-        }
-
-        if (stoneMaxCount >= M) {
-            totalCount += M;
-        } else {
-            totalCount += stoneMaxCount;
-        }
-
-        System.out.println(totalCount);
+        max = Math.max(max, count);
     }
 
     public static boolean canGo(int y, int x, int[][] visited) {
@@ -107,9 +119,5 @@ public class Main {
             return false;
         }
         return true;
-    }
-
-    public static boolean isStone(int y, int x) {
-        return graph[y][x] == 1;
     }
 }

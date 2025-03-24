@@ -87,8 +87,10 @@ public class Main {
                 if (!inRange(ny, nx)) {
                     continue;
                 }
-                if (canGo(pair.y, pair.x, ny, nx)) {
+
+                if (canGo(pair.y, pair.x, ny, nx) && visited[ny][nx] == false) {
                     visited[ny][nx] = true;
+                    queues.add(new Pair(ny, nx));
                     totalContries++;
                 }
             }

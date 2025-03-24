@@ -51,9 +51,8 @@ public class Main {
     }
 
     public static void combi(int index, int count) {
-        if (index == contries.size()) {
+        if (index <= contries.size()) {
             if (result.size() == K) {
-                // 뽑인 K개에 대한 완전탐색 진행하기
                 BFS();
             }
             return ;

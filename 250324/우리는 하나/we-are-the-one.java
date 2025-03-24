@@ -51,11 +51,12 @@ public class Main {
     }
 
     public static void combi(int index, int count) {
-        if (index <= contries.size()) {
-            if (result.size() == K) {
-                BFS();
-            }
-            return ;
+        if (result.size() == K) {
+            BFS();
+            return;
+        }
+        if (index == contries.size()) {
+            return;
         }
 
         // 해당 요소를 포함

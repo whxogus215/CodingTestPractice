@@ -50,16 +50,15 @@ public class Main {
                 int value = graph[y][x] + 1;
 
                 if (inRange(ny, nx)) {
-                    queue.add(new Pair(ny, nx));
                     if (ny == r2 && nx == c2) {
                         System.out.println(value);
                         return ;
                     }
-                    if (graph[ny][nx] != 0) {
-                        graph[ny][nx] = Math.min(graph[ny][nx], value);
-                    } else {
-                        graph[ny][nx] = value;
+                    if (graph[ny][nx] == value) {
+                        continue;
                     }
+                    graph[ny][nx] = value;
+                    queue.add(new Pair(ny, nx));
                 }
             }
         }

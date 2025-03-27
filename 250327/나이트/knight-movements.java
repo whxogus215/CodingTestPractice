@@ -28,6 +28,11 @@ public class Main {
         r2 = sc.nextInt() - 1;
         c2 = sc.nextInt() - 1;
 
+        if (r1 == r2 && c1 == c2) {
+            System.out.println(0);
+            return ;
+        }
+
         graph = new int[N][N];
         queue.add(new Pair(r1, c1));
         while(!queue.isEmpty()) {

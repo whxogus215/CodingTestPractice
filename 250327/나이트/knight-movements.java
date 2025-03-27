@@ -19,6 +19,10 @@ public class Main {
 
     public static Queue<Pair> queue = new ArrayDeque<>();
 
+    public static final int DIR = 8;
+    public static int[] dx = {1, 2, 2, 1, -1, -2, -2, -1};
+    public static int[] dy = {2, 1, -1, -2, -2, -1, 1, 2};
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
@@ -40,30 +44,27 @@ public class Main {
             int y = pair.y;
             int x = pair.x;
 
-            for(int i = 0; i < N; i++) {
-                for(int j = 0; j < N; j++) {
-                    int value = graph[y][x] + 1;
-                    if (isAvail(y, x, i, j)) {
-                        queue.add(new Pair(i, j));
-                        if (i == r2 && j == c2) {
-                            System.out.println(value);
-                            return ;
-                        }
-                        if (graph[i][j] != 0) {
-                            graph[i][j] = Math.min(graph[i][j], value);
-                        } else {
-                            graph[i][j] = value;
-                        }
+            for(int i = 0; i < DIR; i++) {
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+                int value = graph[y][x] + 1;
+
+                if (inRange(ny, nx)) {
+                    queue.add(new Pair(ny, nx));
+                    if (ny == r2 && nx == c2) {
+                        System.out.println(value);
+                        return ;
+                    }
+                    if (graph[ny][nx] != 0) {
+                        graph[ny][nx] = Math.min(graph[ny][nx], value);
+                    } else {
+                        graph[ny][nx] = value;
                     }
                 }
             }
         }
 
         System.out.println(-1);
-    }
-
-    public static boolean isAvail(int y1, int x1, int y2, int x2) {
-        return inRange(y2, x2) && Math.abs(y1 - y2) + Math.abs(x1 - x2) == 3;
     }
 
     public static boolean inRange(int y, int x) {

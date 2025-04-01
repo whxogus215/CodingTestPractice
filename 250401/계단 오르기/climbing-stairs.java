@@ -12,7 +12,7 @@ public class Main {
         Arrays.fill(memo, -1);
 
         int result = step(n);
-        System.out.println(result % DIVIDE);
+        System.out.println(result);
     }
 
     public static int step(int n) {
@@ -26,7 +26,7 @@ public class Main {
         if (n == 0) {
             memo[n] = 1;
         } else {
-            memo[n] = step(n - 3) + step(n - 2);
+            memo[n] = (step(n - 3) + step(n - 2)) % DIVIDE;
         }
 
         return memo[n];

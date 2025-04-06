@@ -17,9 +17,9 @@ public class Main {
         }
         
         int count = 0;
-        for(int len = 1; len <= N - 1; len++) {
-            for(int start = 1; start + len <= N; start++) {
-                int rangeSum = sum[start + len] - sum[start - 1];
+        for(int len = 1; len <= N; len++) {
+            for(int start = 1; start + len - 1 <= N; start++) {
+                int rangeSum = sum[start + len - 1] - sum[start - 1];
                 if (rangeSum == K) {
                     count++;
                 }

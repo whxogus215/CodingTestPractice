@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
 
     public static int N;
-    public static int[][] arr, preSum;
+    public static int[][] arr, preSum, visited;
     public static int max = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
@@ -27,6 +27,7 @@ public class Main {
 
         for(int i = 1; i <= N; i++) {
             for(int j = 1; j <= N; j++) {
+                initialize();
                 calculate(i, j, i, j);
             }
         }
@@ -34,10 +35,24 @@ public class Main {
         System.out.println(max);
     }
 
-    public static void calculate(int i1, int j1, int i2, int j2) {
-        if (!inRange(i2, j2)) {
+    public static void initialize() {
+        if (visited == null) {
+            visited = new int[N + 1][N + 1];
             return ;
         }
+
+        for(int i = 1; i <= N; i++) {
+            for(int j = 1; j <= N; j++) {
+                visited[i][j] = 0;
+            }
+        }
+    }
+
+    public static void calculate(int i1, int j1, int i2, int j2) {
+        if (!inRange(i2, j2) || visited[i2][j2] == 1) {
+            return ;
+        }
+        visited[i2][j2] = 1;
         int sum = getRangeSum(i1, j1, i2, j2);
 
         max = Math.max(max, sum);

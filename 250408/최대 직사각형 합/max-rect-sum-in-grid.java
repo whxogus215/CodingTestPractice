@@ -25,53 +25,19 @@ public class Main {
             }
         }
 
-        for(int i = 1; i <= N; i++) {
-            for(int j = 1; j <= N; j++) {
-                initialize();
-                calculate(i, j, i, j);
+        int max = Integer.MIN_VALUE;
+        for (int i1 = 1; i1 <= N; i1++) {
+            for (int j1 = 1; j1 <= N; j1++) {
+                for (int i2 = i1; i2 <= N; i2++) {
+                    for (int j2 = j1; j2 <= N; j2++) {
+                        int sum = preSum[i2][j2] - preSum[i1-1][j2] - preSum[i2][j1-1] + preSum[i1-1][j1-1];
+                        max = Math.max(max, sum);
+                    }
+                }
             }
         }
 
         System.out.println(max);
     }
 
-    public static void initialize() {
-        if (visited == null) {
-            visited = new int[N + 1][N + 1];
-            return ;
-        }
-
-        for(int i = 1; i <= N; i++) {
-            for(int j = 1; j <= N; j++) {
-                visited[i][j] = 0;
-            }
-        }
-    }
-
-    public static void calculate(int i1, int j1, int i2, int j2) {
-        if (!inRange(i2, j2) || visited[i2][j2] == 1) {
-            return ;
-        }
-        visited[i2][j2] = 1;
-        int sum = getRangeSum(i1, j1, i2, j2);
-
-        max = Math.max(max, sum);
-
-        calculate(i1, j1, i2 + 1, j2);
-        calculate(i1, j1, i2, j2 + 1);
-        calculate(i1, j1, i2 + 1, j2 + 1);
-
-        return ;
-    }
-
-    public static boolean inRange(int row, int col) {
-        return row >= 1 && row <= N && col >= 1 && col <= N;
-    }
-
-    public static int getRangeSum(int i1, int j1, int i2, int j2) {
-        return preSum[i2][j2] 
-        - preSum[i1 - 1][j2]
-        - preSum[i2][j1 - 1] 
-        + preSum[i1 - 1][j1 - 1];
-    }
 }

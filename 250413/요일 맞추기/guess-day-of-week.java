@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Main {
 
     public static int[] months = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    public static String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    public static String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -21,8 +21,15 @@ public class Main {
             compareDays += months[i];
         }
 
-        compareDays -= (standardDays - 1); // standardDays를 1로 기준으로 잡음 (월요일)
+        int idx = standardDays % 7;
+        String[] newDays = new String[7];
+        for(int i = 0; i < 7; i++) {
+            if (idx >= 7) {
+                idx = 0;
+            }
+            newDays[idx++] = days[i];
+        }
 
-        System.out.println(days[compareDays % 7]);
+        System.out.println(newDays[compareDays % 7]);
     }
 }

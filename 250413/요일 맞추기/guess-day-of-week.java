@@ -14,10 +14,10 @@ public class Main {
         int standardDays = d1;
         int compareDays = d2;
 
-        for(int i = 1; i <= m1; i++) {
+        for(int i = 1; i < m1; i++) {
             standardDays += months[i];
         }
-        for(int i = 1; i <= m2; i++) {
+        for(int i = 1; i < m2; i++) {
             compareDays += months[i];
         }
 

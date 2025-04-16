@@ -4,7 +4,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String binary = sc.next();
         
-
         int result = convertTen(binary);
         System.out.println(convertTwo(result * 17));
     }
@@ -18,7 +17,7 @@ public class Main {
     }
 
     public static String convertTwo(int digit) {
-        int[] binary = new int[10];
+        int[] binary = new int[20];
         int cnt = 0;
         
         while(true) {

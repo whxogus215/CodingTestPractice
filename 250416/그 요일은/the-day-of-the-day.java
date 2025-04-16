@@ -36,8 +36,11 @@ public class Main {
         }
         compareDays += d2;
 
-        int dayCount = 0;
-        dayCount = (compareDays - standardDays) / 7 + 1;
-        System.out.println(dayCount);
+        if (standardDays > compareDays) {
+            System.out.println(0);
+        } else {
+            int dayCount = (compareDays - standardDays) / 7 + 1;
+            System.out.println(dayCount);
+        }
     }
 }

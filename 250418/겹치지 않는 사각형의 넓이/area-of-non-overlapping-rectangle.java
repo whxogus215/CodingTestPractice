@@ -6,18 +6,18 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int ax1 = sc.nextInt();
-        int ay1 = sc.nextInt();
-        int ax2 = sc.nextInt();
-        int ay2 = sc.nextInt();
-        int bx1 = sc.nextInt();
-        int by1 = sc.nextInt();
-        int bx2 = sc.nextInt();
-        int by2 = sc.nextInt();
-        int mx1 = sc.nextInt();
-        int my1 = sc.nextInt();
-        int mx2 = sc.nextInt();
-        int my2 = sc.nextInt();
+        int ax1 = sc.nextInt() + OFFSET;
+        int ay1 = sc.nextInt() + OFFSET;
+        int ax2 = sc.nextInt() + OFFSET;
+        int ay2 = sc.nextInt() + OFFSET;
+        int bx1 = sc.nextInt() + OFFSET;
+        int by1 = sc.nextInt() + OFFSET;
+        int bx2 = sc.nextInt() + OFFSET;
+        int by2 = sc.nextInt() + OFFSET;
+        int mx1 = sc.nextInt() + OFFSET;
+        int my1 = sc.nextInt() + OFFSET;
+        int mx2 = sc.nextInt() + OFFSET;
+        int my2 = sc.nextInt() + OFFSET;
 
         for(int i = ax1; i < ax2; i++) {
             for(int j = ay1; j < ay2; j++) {

@@ -19,14 +19,14 @@ public class Main {
                 while(x-- > 0) {
                     tiles[cPos] = WHITE;
                     if (x > 0) {
-                        cPos++;
+                        cPos--;
                     }
                 }
             } else {
                 while(x-- > 0) {
                     tiles[cPos] = BLACK;
                     if (x > 0) {
-                        cPos--;
+                        cPos++;
                     }
                 }
             }

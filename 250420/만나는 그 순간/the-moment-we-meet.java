@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final int MAX_LENG = 100000;
+    public static final int MAX_LENG = 1000000;
     public static int[] A = new int[MAX_LENG + 1];
     public static int[] B = new int[MAX_LENG + 1];
 

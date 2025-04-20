@@ -12,12 +12,13 @@ public class Main {
         int m = sc.nextInt();
         
         // n번 만큼 A의 좌표를 1초 단위로 기록
+        int totalTime = 0;
         int time = 1;
         int signal = 0;
         for(int i = 0; i < n; i++) {
             char d = sc.next().charAt(0);
             int t = sc.nextInt();
-
+            totalTime += t;
             if (d == 'R') {
                 signal = 1;
             } else {
@@ -49,7 +50,7 @@ public class Main {
 
         int answer = -1;
         // A, B의 총 이동시간이 같으므로 두 배열을 동시에 확인 O(1000)
-        for(int i = 1; i <= MAX_LENG; i++) {
+        for(int i = 1; i <= totalTime; i++) {
             if (A[i] == B[i]) {
                 answer = i;
                 break;

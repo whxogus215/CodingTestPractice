@@ -21,7 +21,7 @@ public class Main {
                 isPossible = true;
                 length++;
             } else {
-                length = 1;
+                length = 0;
             }
             max = Math.max(max, length);
         }

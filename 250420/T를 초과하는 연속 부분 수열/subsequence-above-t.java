@@ -17,7 +17,6 @@ public class Main {
 
         for(int i = 1; i < arr.length; i++) {
             if (arr[i] > t) {
-                isPossible = true;
                 length++;
             } else {
                 length = 0;

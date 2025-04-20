@@ -15,7 +15,6 @@ public class Main {
             length = 1;
         }
 
-        boolean isPossible = false;
         for(int i = 1; i < arr.length; i++) {
             if (arr[i] > t) {
                 isPossible = true;
@@ -26,10 +25,6 @@ public class Main {
             max = Math.max(max, length);
         }
 
-        if (isPossible) {
-            System.out.println(max);
-        } else {
-            System.out.println(0);
-        }
+        System.out.println(max);
     }
 }

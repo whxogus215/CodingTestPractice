@@ -6,20 +6,20 @@ class Main {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int count = 0;
-        for (int i = 1; i <= N; i++) {
-            int sum = N;
-            for (int j = i; j <= N; j++) {
-                if (sum > 0) {
-                    sum -= j;
-                } else {
-                    break;
-                }
-            }
-            if (sum == 0) {
+        int sum = 1, count = 1;
+        int startIdx = 1, endIdx = 1;
+
+        while(endIdx < N) {
+            if (sum == N) {
                 count++;
+                sum += ++endIdx;
+            } else if (sum < N) {
+                sum += ++endIdx;
+            } else {
+                sum -= startIdx++;
             }
         }
+
         System.out.println(count);
     }
 }

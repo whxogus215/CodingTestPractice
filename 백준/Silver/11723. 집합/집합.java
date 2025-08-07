@@ -15,7 +15,7 @@ class Main {
         while (M-- > 0) {
             String line = br.readLine();
             if (line.equals("all")) {
-                S = 0b00000000000111111111111111111110;
+                S = (1 << 21) - 1;
             } else if (line.equals("empty")) {
                 S = 0;
             } else {

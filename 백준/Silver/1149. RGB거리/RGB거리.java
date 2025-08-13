@@ -26,15 +26,11 @@ class Main {
         dp[0][BLUE] = rgb[0][BLUE];
 
         for(int i = 1; i < N; i++) {
-            dp[i][RED] = Math.min(dp[i - 1][GREEN] + rgb[i][RED], dp[i - 1][BLUE] + rgb[i][RED]);
-            dp[i][GREEN] = Math.min(dp[i - 1][RED] + rgb[i][GREEN], dp[i - 1][BLUE] + rgb[i][GREEN]);
-            dp[i][BLUE] = Math.min(dp[i - 1][RED] + rgb[i][BLUE], dp[i - 1][GREEN] + rgb[i][BLUE]);
+            dp[i][RED] = Math.min(dp[i - 1][GREEN], dp[i - 1][BLUE]) + rgb[i][RED];
+            dp[i][GREEN] = Math.min(dp[i - 1][RED], dp[i - 1][BLUE]) + rgb[i][GREEN];
+            dp[i][BLUE] = Math.min(dp[i - 1][RED], dp[i - 1][GREEN]) + rgb[i][BLUE];
         }
 
-        int beforeRed = dp[N - 1][RED];
-        int beforeGreen = dp[N - 1][GREEN];;
-        int beforeBlue = dp[N - 1][BLUE];;
-
-        System.out.println(Math.min(Math.min(beforeRed, beforeGreen), beforeBlue));
+        System.out.println(Math.min(Math.min(dp[N - 1][RED], dp[N - 1][GREEN]), dp[N - 1][BLUE]));
     }
 }

@@ -42,17 +42,15 @@ class Main {
 
         int minDate = 0;
 
-        List<Node> nodes = new ArrayList<>();
         while (!queue.isEmpty()) {
             if (currentTomato == mustTomato) {
                 System.out.println(minDate);
                 return ;
             }
 
-            while(!queue.isEmpty()) {
-                nodes.add(queue.poll());
-            }
-            for (Node node : nodes) {
+            int level = queue.size();
+            for (int j = 0; j < level; j++) {
+                Node node = queue.poll();
                 graph[node.y][node.x] = VISIT;
 
                 for(int i = 0; i < DIR; i++) {
@@ -68,7 +66,6 @@ class Main {
                     }
                 }
             }
-            nodes.clear();
 
             minDate++;
         }

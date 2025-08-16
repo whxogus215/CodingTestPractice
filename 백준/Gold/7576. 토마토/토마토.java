@@ -1,16 +1,13 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.Scanner;
 
 class Main {
 
-    private static final int VISIT = 100;
     private static final int DIR = 4;
-
-    private static int[] dy = {0, 1, 0, -1};
-    private static int[] dx = {1, 0, -1, 0};
+    private static final int[] dy = {0, 1, 0, -1};
+    private static final int[] dx = {1, 0, -1, 0};
 
     private static int M, N;
 
@@ -18,58 +15,47 @@ class Main {
         Scanner sc = new Scanner(System.in);
         M = sc.nextInt();
         N = sc.nextInt();
-        int[][] graph = new int[N][M];
+
+        int[][] tomato = new int[N][M];
+        int[][] visited = new int[N][M];
+
+        int mustCount = 0;
+        int nowTomato = 0;
+
         Queue<Node> queue = new ArrayDeque<>();
-
-        int totalCount = M * N;
-        int notTomato = 0;
-        int currentTomato = 0;
-
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < M; j++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
                 int value = sc.nextInt();
-                graph[i][j] = value;
-                if (value == -1) {
-                    notTomato++;
+                if (value != -1) {
+                    if (value == 1) {
+                        queue.add(new Node(i, j, 0));
+                        visited[i][j] = 1;
+                    }
+                    mustCount++;
                 }
-                if (value == 1) {
-                    currentTomato++;
-                    queue.add(new Node(i, j));
-                }
+                tomato[i][j] = value;
             }
         }
-        int mustTomato = totalCount - notTomato;
-
-        int minDate = 0;
 
         while (!queue.isEmpty()) {
-            if (currentTomato == mustTomato) {
-                System.out.println(minDate);
+            Node node = queue.poll();
+            nowTomato++;
+            if (nowTomato == mustCount) {
+                System.out.println(node.time);
                 return ;
             }
 
-            int level = queue.size();
-            for (int j = 0; j < level; j++) {
-                Node node = queue.poll();
-                graph[node.y][node.x] = VISIT;
+            for (int i = 0; i < DIR; i++) {
+                int ny = node.y + dy[i];
+                int nx = node.x + dx[i];
 
-                for(int i = 0; i < DIR; i++) {
-                    int ny = node.y + dy[i];
-                    int nx = node.x + dx[i];
-
-                    if (inRange(ny, nx) && graph[ny][nx] != VISIT) {
-                        if (graph[ny][nx] == 0) {
-                            queue.add(new Node(ny, nx));
-                            currentTomato++;
-                            graph[ny][nx] = VISIT;
-                        }
-                    }
+                if (inRange(ny, nx) && (visited[ny][nx] == 0) && tomato[ny][nx] == 0) {
+                    tomato[ny][nx] = 1;
+                    visited[ny][nx] = 1;
+                    queue.add(new Node(ny, nx, node.time + 1));
                 }
             }
-
-            minDate++;
         }
-
         System.out.println(-1);
     }
 
@@ -81,10 +67,12 @@ class Main {
 
         int y;
         int x;
+        int time;
 
-        public Node(int y, int x) {
+        public Node(int y, int x, int time) {
             this.y = y;
             this.x = x;
+            this.time = time;
         }
     }
 }

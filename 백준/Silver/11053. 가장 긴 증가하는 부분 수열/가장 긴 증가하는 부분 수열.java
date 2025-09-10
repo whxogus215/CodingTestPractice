@@ -1,32 +1,27 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
 class Main {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int[] A = new int[N];
-
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++) {
             A[i] = sc.nextInt();
         }
-
         int[] dp = new int[N];
         Arrays.fill(dp, 1);
-
-        for(int i = 1; i < N; i++) {
-            for (int j = 0; j < i; j++) {
-                if (A[j] < A[i]) {
+        int max = 1;
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < i; j++) {
+                if (A[i] > A[j]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
+                    max = Math.max(max, dp[i]);
                 }
             }
         }
-
-        int result = 0;
-        for (int i = 0; i < N; i++) {
-            result = Math.max(result, dp[i]);
-        }
-        System.out.println(result);
+        
+        System.out.println(max);
     }
 }

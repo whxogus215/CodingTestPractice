@@ -4,7 +4,7 @@ import java.io.*;
 
 class Main {
 
-    private static final int MOD = 1000000007;
+    private static final long DIV = 1000000007;
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -18,7 +18,7 @@ class Main {
         for(int i = 2; i <= N; i++) {
             for(int j = 1; j <= L; j++) {
                 for(int k = 1; k <= R; k++) {
-                    dp[i][j][k] = (dp[i - 1][j - 1][k] + dp[i - 1][j][k - 1] + dp[i - 1][j][k] * (i - 2)) % MOD;
+                    dp[i][j][k] = (dp[i - 1][j - 1][k] + dp[i - 1][j][k - 1] + (i - 2) * dp[i - 1][j][k]) % DIV;
                 }
             }
         }
@@ -26,4 +26,3 @@ class Main {
         System.out.println(dp[N][L][R]);
     }
 }
-    

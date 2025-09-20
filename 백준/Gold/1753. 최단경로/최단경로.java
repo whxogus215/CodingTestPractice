@@ -12,59 +12,54 @@ class Main {
         int E = sc.nextInt();
         int K = sc.nextInt();
 
-        List<Edge>[] edges = new ArrayList[V + 1];
-        for(int i = 1; i <= V; i++) {
-            edges[i] = new ArrayList<>();
-        }
+        List<Node>[] nodes = new ArrayList[V + 1];
+        boolean[] visited = new boolean[V + 1];
+        int[] weights = new int[V + 1];
+        Arrays.fill(weights, INF);
+        PriorityQueue<Node> queue = new PriorityQueue<>((n1, n2) -> Integer.compare(n1.weight, n2.weight));
         
+        for(int i = 1; i <= V; i++) {
+            nodes[i] = new ArrayList<>();
+        }
         for(int i = 0; i < E; i++) {
             int u = sc.nextInt();
             int v = sc.nextInt();
             int w = sc.nextInt();
-            edges[u].add(new Edge(v, w));
+            nodes[u].add(new Node(v, w));
         }
+        queue.add(new Node(K, 0));
+        weights[K] = 0;
 
-        int[] cost = new int[V + 1];
-        int[] visited = new int[V + 1];
-        
-        Arrays.fill(cost, INF);
-        cost[K] = 0;
-
-        PriorityQueue<Edge> queue = new PriorityQueue<>((e1, e2) -> Integer.compare(e1.weight, e2.weight));
-        queue.add(new Edge(K, 0));
-        
         while(!queue.isEmpty()) {
-            Edge e = queue.poll();
-            int start = e.end;
-
-            if (visited[start] == 1) {
+            Node node = queue.poll();
+            int current = node.target;
+            if (visited[current]) {
                 continue;
             }
-            visited[start] = 1;
-            
-            for(Edge edge : edges[start]) {
-                if (cost[edge.end] > cost[start] + edge.weight) {
-                    cost[edge.end] = cost[start] + edge.weight;
-                    queue.add(new Edge(edge.end, cost[edge.end]));
+            visited[current] = true;
+            for(Node n : nodes[current]) {
+                if (weights[n.target] > weights[current] + n.weight) {
+                    weights[n.target] = weights[current] + n.weight;
+                    queue.add(new Node(n.target, weights[n.target]));
                 }
             }
         }
 
         for(int i = 1; i <= V; i++) {
-            if (cost[i] == INF) {
+            if (weights[i] == INF) {
                 System.out.println("INF");
             } else {
-                System.out.println(cost[i]);
+                System.out.println(weights[i]);
             }
         }
     }
 
-    static class Edge {
-        int end;
+    static class Node {
+        int target;
         int weight;
 
-        public Edge(int end, int weight) {
-            this.end = end;
+        public Node(int target, int weight) {
+            this.target = target;
             this.weight = weight;
         }
     }

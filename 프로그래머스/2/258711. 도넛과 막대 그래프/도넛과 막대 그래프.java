@@ -29,18 +29,20 @@ class Solution {
             int outNode = edges[i][0];
             int inNode = edges[i][1];
             
-            if (nodes[outNode] == null) {
-                nodes[outNode] = new ArrayList<>();
+            if (nodes[inNode] == null) {
+                nodes[inNode] = new ArrayList<>();
             }
-            nodes[outNode].add(inNode);
+            nodes[inNode].add(outNode);
         }
         
         for(int i = 0; i < edges.length; i++) {
             if (edges[i][0] == answer[0]) {
                 int cycleCount = findCycleCount(edges[i][1]);
                 if (cycleCount == 1) {
+                    System.out.println("도넛 번호 : " + edges[i][1]);
                     answer[1]++;
                 } else if (cycleCount == 2) {
+                    System.out.println("8자 번호 : " + edges[i][1]);
                     answer[3]++;
                 }
             }
@@ -57,6 +59,7 @@ class Solution {
         
         while(!queue.isEmpty()) {
             int current = queue.poll();
+            System.out.println("현재 방문 노드 : " + current);
             if (nodes[current] == null) {
                 continue;
             }

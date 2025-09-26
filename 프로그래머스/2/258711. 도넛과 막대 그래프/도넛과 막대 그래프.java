@@ -2,66 +2,74 @@ import java.util.*;
 
 class Solution {
     
-    private static final int MAX = 1000000;
-    
-    boolean[] visited = new boolean[MAX + 1];
+    List<Integer>[] nodes = new ArrayList[1000001];
+    Deque<Integer> queue = new ArrayDeque<>();
+    boolean[] visited = new boolean[1000001];
     
     public int[] solution(int[][] edges) {
         int[] answer = new int[4];
-
-        int[] in = new int[MAX + 1];
-        int[] out = new int[MAX + 1];
-        List<Integer>[] edge = new LinkedList[MAX + 1];
-        for(int i = 1; i <= MAX; i++) {
-            edge[i] = new LinkedList<>();
-        }
+        
+        // in과 out을 Map으로 저장
+        Map<Integer, Integer> in = new HashMap<>();
+        Map<Integer, Integer> out = new HashMap<>();
         
         for(int i = 0; i < edges.length; i++) {
-            out[edges[i][0]]++;
-            in[edges[i][1]]++;
-            edge[edges[i][0]].add(edges[i][1]);
+            in.put(edges[i][1], in.getOrDefault(edges[i][1], 0) + 1);
+            out.put(edges[i][0], out.getOrDefault(edges[i][0], 0) + 1);
         }
         
-        for(int i = 1; i <= MAX; i++) {
-            if (in[i] == 0 && out[i] >= 2) {
-                answer[0] = i;
+        for(Integer key : out.keySet()) {
+            if (out.get(key) >= 2 && in.getOrDefault(key, 0) == 0) {
+                answer[0] = key;
                 break;
             }
         }
         
-        for(Integer current : edge[answer[0]]) {
-            int count = findCycleCount(current, edge);
+        for(int i = 0; i < edges.length; i++) {
+            int outNode = edges[i][0];
+            int inNode = edges[i][1];
             
-            if (count == 1) {
-                answer[1]++;
-            } else if (count == 2) {
-                answer[3]++;
-            } else {
-                answer[2]++;
+            if (nodes[outNode] == null) {
+                nodes[outNode] = new ArrayList<>();
+            }
+            nodes[outNode].add(inNode);
+        }
+        
+        for(int i = 0; i < edges.length; i++) {
+            if (edges[i][0] == answer[0]) {
+                int cycleCount = findCycleCount(edges[i][1]);
+                if (cycleCount == 1) {
+                    answer[1]++;
+                } else if (cycleCount == 2) {
+                    answer[3]++;
+                }
             }
         }
+        answer[2] = out.get(answer[0]) - (answer[1] + answer[3]);
         
         return answer;
     }
     
-    private int findCycleCount(int start, List<Integer>[] edge) {
-        int cycleCount = 0;
-        Queue<Integer> queue = new ArrayDeque<>();
+    private int findCycleCount(int start) {
         queue.add(start);
         visited[start] = true;
+        int count = 0;
         
         while(!queue.isEmpty()) {
-            Integer now = queue.poll();
-            for(Integer next : edge[now]) {
+            int current = queue.poll();
+            if (nodes[current] == null) {
+                continue;
+            }
+            for(int next : nodes[current]) {
                 if (visited[next]) {
-                    cycleCount++;
+                    count++;
                     continue;
                 }
                 queue.add(next);
                 visited[next] = true;
             }
         }
-        
-        return cycleCount;     
+        queue.clear();
+        return count;
     }
 }

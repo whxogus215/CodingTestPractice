@@ -1,78 +1,45 @@
-import java.util.*;
-
 class Solution {
     
-    List<Integer>[] nodes = new ArrayList[1000001];
-    Deque<Integer> queue = new ArrayDeque<>();
-    boolean[] visited = new boolean[1000001];
+    private final int MAX_N = 1000000;
     
     public int[] solution(int[][] edges) {
-        int[] answer = new int[4];
         
-        // in과 out을 Map으로 저장
-        Map<Integer, Integer> in = new HashMap<>();
-        Map<Integer, Integer> out = new HashMap<>();
+        int[] in = new int[MAX_N + 1];
+        int[] out = new int[MAX_N + 1];
         
+        int maxNode = 0;
         for(int i = 0; i < edges.length; i++) {
-            in.put(edges[i][1], in.getOrDefault(edges[i][1], 0) + 1);
-            out.put(edges[i][0], out.getOrDefault(edges[i][0], 0) + 1);
-        }
-        
-        for(Integer key : out.keySet()) {
-            if (out.get(key) >= 2 && in.getOrDefault(key, 0) == 0) {
-                answer[0] = key;
-                break;
-            }
-        }
-        
-        for(int i = 0; i < edges.length; i++) {
-            int outNode = edges[i][0];
-            int inNode = edges[i][1];
+            out[edges[i][0]]++;
+            in[edges[i][1]]++;
             
-            if (nodes[inNode] == null) {
-                nodes[inNode] = new ArrayList<>();
-            }
-            nodes[inNode].add(outNode);
+            maxNode = Math.max(maxNode, Math.max(edges[i][0], edges[i][1]));
         }
         
-        for(int i = 0; i < edges.length; i++) {
-            if (edges[i][0] == answer[0]) {
-                int cycleCount = findCycleCount(edges[i][1]);
-                if (cycleCount == 1) {
-                    System.out.println("도넛 번호 : " + edges[i][1]);
-                    answer[1]++;
-                } else if (cycleCount == 2) {
-                    System.out.println("8자 번호 : " + edges[i][1]);
-                    answer[3]++;
-                }
+        int startNode = -1;
+        int stickNodeCount = 0;
+        int eightNodeCount = 0;
+        
+        for(int i = 1; i <= maxNode; i++) {
+            if (in[i] == 0 && out[i] >= 2) {
+                startNode = i;
+            } else if (in[i] >= 2 && out[i] == 2) {
+                eightNodeCount++;
+            } else if (in[i] > 0 && out[i] == 0) {
+                stickNodeCount++;
             }
         }
-        answer[2] = out.get(answer[0]) - (answer[1] + answer[3]);
+              
+        int[] answer = {startNode, out[startNode] - (stickNodeCount + eightNodeCount), stickNodeCount, eightNodeCount};
         
         return answer;
     }
-    
-    private int findCycleCount(int start) {
-        queue.add(start);
-        visited[start] = true;
-        int count = 0;
-        
-        while(!queue.isEmpty()) {
-            int current = queue.poll();
-            System.out.println("현재 방문 노드 : " + current);
-            if (nodes[current] == null) {
-                continue;
-            }
-            for(int next : nodes[current]) {
-                if (visited[next]) {
-                    count++;
-                    continue;
-                }
-                queue.add(next);
-                visited[next] = true;
-            }
-        }
-        queue.clear();
-        return count;
-    }
 }
+
+// 정점 : 나가는 간선이 2개 이상이고, 들어오는 간선이 없음.
+// 그래프의 총 합 : 나가는 간선의 개수
+// 막대 : 나가는 간선이 1개이고, 들어오는 간선이 없음.
+// 8자 : 나가는 간선이 2개, 들어오는 간선이 2개인 정점이 있음.
+// 도넛 : 그래프의 총합 - (막대 + 8자)
+
+// 각 정점별 나가는 간선 개수와 들어오는 간선 개수를 저장
+// 2개의 배열

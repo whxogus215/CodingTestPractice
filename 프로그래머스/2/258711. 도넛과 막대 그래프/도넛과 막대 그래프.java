@@ -1,45 +1,41 @@
+import java.util.*;
+
 class Solution {
-    
-    private final int MAX_N = 1000000;
-    
     public int[] solution(int[][] edges) {
+        int[] answer = new int[4];
         
-        int[] in = new int[MAX_N + 1];
-        int[] out = new int[MAX_N + 1];
+        Map<Integer, Integer> in = new HashMap<>();
+        Map<Integer, Integer> out = new HashMap<>();
         
-        int maxNode = 0;
-        for(int i = 0; i < edges.length; i++) {
-            out[edges[i][0]]++;
-            in[edges[i][1]]++;
-            
-            maxNode = Math.max(maxNode, Math.max(edges[i][0], edges[i][1]));
+        for(int[] edge : edges) {
+            out.put(edge[0], out.getOrDefault(edge[0], 0) + 1);
+            in.put(edge[1], in.getOrDefault(edge[1], 0) + 1);
         }
         
-        int startNode = -1;
-        int stickNodeCount = 0;
-        int eightNodeCount = 0;
-        
-        for(int i = 1; i <= maxNode; i++) {
-            if (in[i] == 0 && out[i] >= 2) {
-                startNode = i;
-            } else if (in[i] >= 2 && out[i] == 2) {
-                eightNodeCount++;
-            } else if (in[i] > 0 && out[i] == 0) {
-                stickNodeCount++;
+        for(int num : out.keySet()) {
+            if (out.get(num) >= 2) {
+                if (!in.containsKey(num)) {
+                    answer[0] = num;
+                } else {
+                    answer[3]++;
+                }
             }
         }
-              
-        int[] answer = {startNode, out[startNode] - (stickNodeCount + eightNodeCount), stickNodeCount, eightNodeCount};
         
+        for(int num : in.keySet()) {
+            if (out.getOrDefault(num, 0) == 0) {
+                if (in.get(num) <= 2) {
+                    answer[2]++;
+                }
+            }
+        }
+        
+        answer[1] = out.get(answer[0]) - (answer[2] + answer[3]);
         return answer;
     }
 }
 
-// 정점 : 나가는 간선이 2개 이상이고, 들어오는 간선이 없음.
-// 그래프의 총 합 : 나가는 간선의 개수
-// 막대 : 나가는 간선이 1개이고, 들어오는 간선이 없음.
-// 8자 : 나가는 간선이 2개, 들어오는 간선이 2개인 정점이 있음.
-// 도넛 : 그래프의 총합 - (막대 + 8자)
-
-// 각 정점별 나가는 간선 개수와 들어오는 간선 개수를 저장
-// 2개의 배열
+// 나가는 간선만 있는 정점
+// 8자 : 나가는 간선 2개, 들어오는 간선 2개 이상
+// 막대 : 나가는 간선 0개, 들어오는 간선 0개 이상
+// 도넛 : 나가는 간선 1개, 들어오는 간선 1개 이상

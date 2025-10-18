@@ -2,95 +2,91 @@ import java.util.*;
 
 class Solution {
     
-    private int diceNumber;
-    private int maxWins = -1;
-    private int[] answer;
     private int[][] dice;
+    private int[] answer;
+    private int maxWins = 0;
+    
     
     public int[] solution(int[][] dice) {
         this.dice = dice;
-        diceNumber = dice.length;
-        // 1. getCombination() : A가 갖는 조합을 구한다.
-        // 2. 각 조합에 대한 승리횟수를 계산한다. : calculateWins()
-        // 3. 최종 조합을 반환한다.
+        answer = new int[dice.length / 2];
         
-        answer = new int[diceNumber / 2];
-        
-        getCombination(1, new ArrayList<>());
+        doCombination(1, 0, new ArrayList<>());
         
         return answer;
     }
     
-    private void getCombination(int start, List<Integer> aCombi) {
-        if (aCombi.size() == diceNumber / 2) {
-            calculateWins(aCombi); // 구한 조합에 대한 승리횟수 계산
+    private void doCombination(int current, int depth, List<Integer> combi) {
+        if (depth == dice.length / 2) {
+            // A의 주사위 조합을 모두 구함.
+            calculateWins(combi);
             return ;
         }
-        
-        for(int i = start; i <= diceNumber; i++) {
-            aCombi.add(i);
-            getCombination(i + 1, aCombi);
-            aCombi.remove(aCombi.size() - 1);
+        for(int i = current; i <= dice.length; i++) {
+            combi.add(i);
+            doCombination(i + 1, depth + 1, combi);
+            combi.remove(combi.size() - 1);
         }
+        return ;        
     }
     
     private void calculateWins(List<Integer> aCombi) {
-        // bCombi 계산
         List<Integer> bCombi = new ArrayList<>();
-        for(int i = 1; i <= diceNumber; i++) {
-            if (aCombi.contains(i)) {
-                continue;
+        for(int i = 1; i <= dice.length; i++) {
+            if (!aCombi.contains(i)) {
+                bCombi.add(i);   
             }
-            bCombi.add(i);
         }
         
-        // aSums 계산
         List<Integer> aSums = new ArrayList<>();
-        getAllSums(0, 0, aCombi, aSums);
+        calculateSums(0, 0, aCombi, aSums);
         
-        // bSums 계산
         List<Integer> bSums = new ArrayList<>();
-        getAllSums(0, 0, bCombi, bSums);
+        calculateSums(0, 0, bCombi, bSums);
         
-        // bSums 정렬
         Collections.sort(bSums);
         
-        int currentWins = 0;
-        // 모든 aSums에 대해 bSums의 값을 비교 (이진탐색)
+        int totalWins = 0;
         for(int sum : aSums) {
             int low = 0;
             int high = bSums.size() - 1;
-            int idx = bSums.size();
+            int idx = 0;
             while(low <= high) {
-               int mid = low + (high - low) / 2;
-               if (bSums.get(mid) < sum) {
-                   low = mid + 1;
-               } else {
-                   idx = Math.min(idx, mid);
+                int mid = low + (high - low) / 2;
+                
+                if (bSums.get(mid) < sum) {
+                    idx = mid;
+                    low = mid + 1;
+                } else {
                     high = mid - 1;
-               }
+                }
             }
-            currentWins += idx;
+            totalWins += idx + 1;
         }
         
-        if (currentWins > maxWins) {
-            maxWins = currentWins;
-            for(int i = 0; i < aCombi.size(); i++) {
+        if (totalWins > maxWins) {
+            for(int i = 0; i < answer.length; i++) {
                 answer[i] = aCombi.get(i);
             }
+            maxWins = totalWins;
         }
     }
     
-    private void getAllSums(int depth, int currentSum, List<Integer> combi, List<Integer> sums) {
-        // 주어진 조합에 대한 주사위 합 저장
-        if (depth == combi.size()) {
-            sums.add(currentSum);
+    private void calculateSums(int depth, int total, List<Integer> combi, List<Integer> sums) {
+        if (depth == dice.length / 2) {
+            sums.add(total);
             return ;
         }
-        
-        int diceIdx = combi.get(depth) - 1;
-        for(int face : dice[diceIdx]) {
-            getAllSums(depth + 1, currentSum + face, combi, sums);
+        int round = combi.get(depth);
+        for(int face : dice[round - 1]) {
+            calculateSums(depth + 1, total + face, combi, sums);
         }
+        return ;
     }
+    
+    // N개 중 N/2개의 조합을 고른다.
+        // 각 조합마다 A와 B의 주사위 합을 모두 구한다.
+        // A의 합 요소마다 B에 대해 이분탐색을 수행한다.
+        // A의 요소보다 작은 위치가 나오는 최대지점을 구하고 거기에 1을 더한다.
+        // 총 승수가 기존 최대 값보다 크다면 값을 갱신한다.
 }

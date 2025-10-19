@@ -9,21 +9,20 @@ class Main {
         int M = sc.nextInt();
 
         int[] arr = new int[N];
-        int low = 0;
-        int high = 0;
+        int min = 0;
+        int max = 0;
         for(int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
-            low = Math.max(low, arr[i]);
-            high += arr[i];
+            min = Math.max(min, arr[i]);
+            max += arr[i];
         }
 
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-
-            int sum = 0;
+        while(min <= max) {
+            int mid = min + (max - min) / 2;
             int count = 0;
-            for(int i = 0; i < N; i++) {
-                if (arr[i] + sum > mid) {
+            int sum = 0;
+            for(int i = 0; i < arr.length; i++) {
+                if (sum + arr[i] > mid) {
                     count++;
                     sum = 0;
                 }
@@ -32,13 +31,13 @@ class Main {
             if (sum != 0) {
                 count++;
             }
-            if (count > M) {
-                low = mid + 1;
+
+            if (count <= M) {
+                max = mid - 1;
             } else {
-                high = mid - 1;
+                min = mid + 1;
             }
         }
-        
-        System.out.println(low);
+        System.out.println(min);
     }
 }

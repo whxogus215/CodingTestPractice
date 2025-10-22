@@ -25,7 +25,7 @@ class Main {
             int remain = 0;
             for(int i = 0; i < N; i++) {
                 int balance = prices[i];
-                while(remain < balance) {
+                if (remain < balance) {
                     count++;
                     remain = mid;
                 }

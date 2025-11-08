@@ -7,7 +7,6 @@ class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int M = sc.nextInt();
-
         int[] time = new int[M];
         for(int i = 0; i < M; i++) {
             time[i] = sc.nextInt();
@@ -17,13 +16,12 @@ class Main {
             System.out.println(N);
             return ;
         }
-
-        long left = 0;
-        long right = 60_000_000_000L;
-        long limit = 0;
         
-        while(left <= right) {
-            long mid = left + (right - left) / 2;
+        long low = 1;
+        long high = 60_000_000_000L;
+        long limit = high + 1;
+        while(low <= high) {
+            long mid = low + (high - low) / 2;
 
             long sum = M;
             for(int i = 0; i < M; i++) {
@@ -32,29 +30,25 @@ class Main {
 
             if (sum >= N) {
                 limit = mid;
-                right = mid - 1;
+                high = mid - 1;
             } else {
-                left = mid + 1;
+                low = mid + 1;
             }
         }
 
-        long totalSum = M;
+        long sum = M;
         for(int i = 0; i < M; i++) {
-            totalSum += (limit - 1) / time[i];
+            sum += (limit - 1) / time[i];
         }
 
-        long lastPeople = totalSum;
-        int lastNumber = 0;
         for(int i = 0; i < M; i++) {
             if (limit % time[i] == 0) {
-                lastPeople++;
+                sum++;
             }
-            if (lastPeople == N) {
-                lastNumber = i + 1;
-                break;
+            if (sum == N) {
+                System.out.println(i + 1);
+                return ;
             }
         }
-        
-        System.out.println(lastNumber);
     }
 }

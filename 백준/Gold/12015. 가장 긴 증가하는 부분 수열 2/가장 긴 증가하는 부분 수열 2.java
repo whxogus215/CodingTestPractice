@@ -10,36 +10,32 @@ class Main {
         for(int i = 0; i < N; i++) {
             arr[i] = sc.nextInt();
         }
+
+        int[] lis = new int[N];
+        int lastIndex = 0;
+        lis[lastIndex] = arr[0];
         
-        List<Integer> lis = new ArrayList<>();
-        for(int i = 0; i < N; i++) {
-            if (lis.isEmpty()) {
-                lis.add(arr[i]);
-                continue;
-            } 
-            if (arr[i] > lis.get(lis.size() - 1)) {
-                lis.add(arr[i]);
+        for(int i = 1; i < N; i++) {
+            if (arr[i] > lis[lastIndex]) {
+                lis[++lastIndex] = arr[i];
             } else {
                 // 이분 탐색
                 int left = 0;
-                int right = lis.size() - 1;
-                int index = lis.size();
-                int target = arr[i];
+                int right = lastIndex;
+                int index = lastIndex + 1;
                 while(left <= right) {
                     int mid = left + (right - left) / 2;
-                    if (lis.get(mid) >= target) {
+                    if (lis[mid] >= arr[i]) {
                         index = mid;
                         right = mid - 1;
                     } else {
                         left = mid + 1;
                     }
                 }
-                if (index < i) {
-                    lis.set(index, target);
-                }
+                lis[index] = arr[i];
             }
         }
         
-        System.out.println(lis.size());
+        System.out.println(lastIndex + 1);
     }
 }

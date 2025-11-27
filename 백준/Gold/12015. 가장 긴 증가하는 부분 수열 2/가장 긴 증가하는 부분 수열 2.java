@@ -3,12 +3,14 @@ import java.lang.*;
 import java.io.*;
 
 class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
+        
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i = 0; i < N; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         int[] lis = new int[N];

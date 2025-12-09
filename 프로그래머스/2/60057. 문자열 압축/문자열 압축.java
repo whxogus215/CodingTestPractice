@@ -9,27 +9,18 @@ class Solution {
             String key = s.substring(0, keyLength);
             int matchNumber = 1;
             for(int i = keyLength; i < s.length(); i += keyLength) {
-                String next;
-                if (i + keyLength > s.length()) {
-                    next = s.substring(i, s.length());
-                } else {
-                    next = s.substring(i, i + keyLength);
-                }
+                int endIdx = Math.min(s.length(), i + keyLength);
+                String next = s.substring(i, endIdx);
                 if (key.equals(next)) {
                     matchNumber++;
                 } else {
-                    if (matchNumber > 1) {
-                        sb.append(matchNumber);
-                    }
-                    sb.append(key);
+                    sb.append((matchNumber > 1) ? matchNumber + key : key);
                     key = next;
                     matchNumber = 1;
                 }
             }
-            if (matchNumber > 1) {
-                sb.append(matchNumber);
-            }
-            sb.append(key);
+            sb.append((matchNumber > 1) ? matchNumber + key : key);
+
             min = Math.min(min, sb.length());
         }
         

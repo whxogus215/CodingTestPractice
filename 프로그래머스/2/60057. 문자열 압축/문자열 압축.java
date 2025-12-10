@@ -1,29 +1,31 @@
-import java.util.*;
-
 class Solution {
     public int solution(String s) {
-        int min = s.length();
-        StringBuilder sb;
-        for(int keyLength = 1; keyLength <= s.length() / 2; keyLength++) {
-            sb = new StringBuilder();
-            String key = s.substring(0, keyLength);
+        int minLength = s.length();
+        for(int n = 1; n <= s.length() / 2; n++) {
+            StringBuilder sb = new StringBuilder();
             int matchNumber = 1;
-            for(int i = keyLength; i < s.length(); i += keyLength) {
-                int endIdx = Math.min(s.length(), i + keyLength);
-                String next = s.substring(i, endIdx);
+            int idx = 0;
+            String key = s.substring(idx, idx + n);
+            for(int i = idx + n; i < s.length(); i += n) {
+                String next = s.substring(i, Math.min(i + n, s.length()));
                 if (key.equals(next)) {
                     matchNumber++;
                 } else {
-                    sb.append((matchNumber > 1) ? matchNumber + key : key);
-                    key = next;
+                    if (matchNumber > 1) {
+                        sb.append(matchNumber);
+                    }
+                    sb.append(key);
                     matchNumber = 1;
+                    key = next;
                 }
             }
-            sb.append((matchNumber > 1) ? matchNumber + key : key);
-
-            min = Math.min(min, sb.length());
+            if (matchNumber > 1) {
+                sb.append(matchNumber);
+            }
+            sb.append(key);
+            minLength = Math.min(minLength, sb.length());
         }
         
-        return min;
+        return minLength;
     }
 }

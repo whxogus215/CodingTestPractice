@@ -1,20 +1,23 @@
 class Solution {
     public boolean solution(int[][] key, int[][] lock) {
         int offset = key.length - 1;
-        
         for(int r = 0; r < offset + lock.length; r++) {
             for(int c = 0; c < offset + lock.length; c++) {
-                for(int rot = 0; rot < 4; rot++) { // 시계 방향으로 회전
-                    int[][] arr = new int[58][58];
+                for(int rot = 0; rot < 4; rot++) {
+                    int n = lock.length;
+                    int[][] arr = new int[3 * n - 2][3 * n - 2];
                     
-                    // 자물쇠 채우기
+                    // 자물쇠 세팅
                     for(int i = 0; i < lock.length; i++) {
                         for(int j = 0; j < lock.length; j++) {
                             arr[i + offset][j + offset] = lock[i][j];
-                        }    
+                        }
                     }
                     
-                    simulate(arr, rot, r, c, key);
+                    // 회전해서 열쇠 넣기
+                    simulate(arr, key, r, c, rot);
+                    
+                    // 자물쇠가 모두 1인지 확인
                     if (check(arr, lock, offset)) {
                         return true;
                     }
@@ -24,18 +27,18 @@ class Solution {
         return false;
     }
     
-    private void simulate(int[][] arr, int rot, int r, int c, int[][] key) {
+    private void simulate(int[][] arr, int[][] key, int r, int c, int rot) {
         int n = key.length;
         for(int i = 0; i < key.length; i++) {
             for(int j = 0; j < key.length; j++) {
                 if (rot == 0) {
-                    arr[r + i][c + j] += key[i][j];
+                    arr[i + r][j + c] += key[i][j];
                 } else if (rot == 1) {
-                    arr[r + i][c + j] += key[j][n - i - 1];
+                    arr[i + r][j + c] += key[j][n - 1 - i];
                 } else if (rot == 2) {
-                    arr[r + i][c + j] += key[n - 1 - i][n - 1 - j];
+                    arr[i + r][j + c] += key[n - 1 - i][n - 1 - j];
                 } else {
-                    arr[r + i][c + j] += key[n - 1 - j][i];
+                    arr[i + r][j + c] += key[n - 1 - j][i];
                 }
             }
         }
@@ -44,7 +47,7 @@ class Solution {
     private boolean check(int[][] arr, int[][] lock, int offset) {
         for(int i = 0; i < lock.length; i++) {
             for(int j = 0; j < lock.length; j++) {
-                if (arr[offset + i][offset + j] != 1) {
+                if (arr[i + offset][j + offset] != 1) {
                     return false;
                 }
             }
@@ -52,10 +55,3 @@ class Solution {
         return true;
     }
 }
-
-// 열쇠의 돌기 - 자물쇠의 홈 (O)
-// 열쇠의 돌기 - 자물쇠의 돌기 (X)
-
-// 좌표의 회전(시계/반시계), 이동(상하좌우), 데이터 크기가 작으므로 완전탐색
-// 2차원 배열
-

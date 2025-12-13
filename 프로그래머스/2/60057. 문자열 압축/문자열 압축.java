@@ -1,21 +1,20 @@
 class Solution {
     public int solution(String s) {
-        int minLength = s.length();
-        for(int n = 1; n <= s.length() / 2; n++) {
+        int answer = s.length();
+        for(int len = 1; len <= s.length() / 2; len++) {
             StringBuilder sb = new StringBuilder();
+            String key = s.substring(0, len);
             int matchNumber = 1;
-            int idx = 0;
-            String key = s.substring(idx, idx + n);
-            for(int i = idx + n; i < s.length(); i += n) {
-                String next = s.substring(i, Math.min(i + n, s.length()));
-                if (key.equals(next)) {
-                    matchNumber++;
+            for(int i = len; i < s.length(); i += len) {
+                String next = s.substring(i, Math.min(s.length(), i + len));
+                if (next.equals(key)) {
+                    matchNumber++;            
                 } else {
                     if (matchNumber > 1) {
                         sb.append(matchNumber);
+                        matchNumber = 1;
                     }
                     sb.append(key);
-                    matchNumber = 1;
                     key = next;
                 }
             }
@@ -23,9 +22,9 @@ class Solution {
                 sb.append(matchNumber);
             }
             sb.append(key);
-            minLength = Math.min(minLength, sb.length());
+            
+            answer = Math.min(answer, sb.length());
         }
-        
-        return minLength;
+        return answer;
     }
 }

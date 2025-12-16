@@ -1,21 +1,22 @@
+import java.util.*;
+
 class Solution {
     
-    private static final int MAX_COUNT = Integer.MAX_VALUE;
-    
+    private static final int MAX = Integer.MAX_VALUE;
+    private int minCount = MAX;
     private int n;
     private int[] weak;
-    private int[] weakExpanded;
     private int[] dist;
+    private int[] weakExpanded;
     private boolean[] visited;
-    private int minCount = MAX_COUNT;
     
-    public int solution(int n, int[] weak, int[] dist) {   
+    public int solution(int n, int[] weak, int[] dist) {
         this.n = n;
         this.weak = weak;
         this.dist = dist;
-        this.visited = new boolean[dist.length]; 
-        
         this.weakExpanded = new int[weak.length * 2];
+        this.visited = new boolean[dist.length];
+        
         for(int i = 0; i < weak.length; i++) {
             weakExpanded[i] = weak[i];
             weakExpanded[i + weak.length] = weak[i] + n;
@@ -23,7 +24,7 @@ class Solution {
         
         dfs(0, new int[dist.length]);
         
-        if (minCount == MAX_COUNT) {
+        if (minCount == MAX) {
             return -1;
         }
         return minCount;
@@ -31,8 +32,8 @@ class Solution {
     
     private void dfs(int depth, int[] result) {
         if (depth == dist.length) {
-            simulate(result);
-            return ;
+            simulate(result);            
+            return ; 
         }
         
         for(int i = 0; i < dist.length; i++) {
@@ -46,25 +47,22 @@ class Solution {
     }
     
     private void simulate(int[] friendOrder) {
-        
-        // 모든 weak 지점에 대해서 출발을 해봐야 함
         for(int start = 0; start < weak.length; start++) {
             int cursor = start;
-            int friendCount = 0;
+            int searchCount = 0;
             for(int i = 0; i < friendOrder.length; i++) {
-                int currentDist = friendOrder[i];
-                int coverage = weakExpanded[cursor] + currentDist;
-                
-                while (cursor < weakExpanded.length && weakExpanded[cursor] <= coverage) {
+                int end = weakExpanded[cursor] + friendOrder[i];
+                while (cursor < weakExpanded.length && weakExpanded[cursor] <= end) {
+                    searchCount++;
                     cursor++;
                 }
-                friendCount++;
-                
-                if (cursor - start >= weak.length) {
-                    minCount = Math.min(minCount, friendCount);
+                if (searchCount >= weak.length) {
+                    minCount = Math.min(minCount, (i + 1));
                     break;
                 }
             }
         }
     }
 }
+
+// 각 순열에 대해 취약점 각 부분을 시작점으로 하여 시뮬레이션 -> 최소 값 갱신

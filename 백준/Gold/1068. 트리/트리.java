@@ -4,10 +4,10 @@ import java.io.*;
 
 class Main {
 
-    private static int leafCount = 0;
-    private static int removeNode;
-    private static boolean[] visited;
-    private static List<Integer>[] tree;
+    public static List<Integer>[] tree;
+    public static boolean[] visited;
+    public static int answer = 0;
+    public static int removeNode;
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -17,38 +17,36 @@ class Main {
         for(int i = 0; i < N; i++) {
             tree[i] = new ArrayList<>();
         }
-
-        int rootNode = -1;
+        int root = -1;
         for(int i = 0; i < N; i++) {
-            int parent = sc.nextInt();
-            if (parent == -1) {
-                rootNode = i;
+            int node = sc.nextInt();
+            if (node == -1) {
+                root = i;
                 continue;
             }
-            tree[parent].add(i);
+            tree[node].add(i);
         }
-
-        // 입력받은 번호로 DFS -> 해당 구역을 방문하지 않는 상태로 변경(배열 사용)
         removeNode = sc.nextInt();
-        if (removeNode == rootNode) {
+
+        if (removeNode == root) {
             System.out.println(0);
-        } else {
-            dfs(rootNode);
-            System.out.println(leafCount);
+            return ;
         }
+        dfs(root);
+        System.out.println(answer);
     }
 
-    private static void dfs(int startNode) {
-        visited[startNode] = true;
+    public static void dfs(int node) {
+        visited[node] = true;
         int childCount = 0;
-        for(Integer node : tree[startNode]) {
-            if (!visited[node] && node != removeNode) {
+        for(int child : tree[node]) {
+            if (!visited[child] && child != removeNode) {
+                dfs(child);
                 childCount++;
-                dfs(node);
             }
         }
         if (childCount == 0) {
-            leafCount++;
+            answer++;
         }
     }
 }

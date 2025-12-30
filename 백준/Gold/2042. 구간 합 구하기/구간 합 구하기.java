@@ -14,7 +14,9 @@ class Main {
         int K = sc.nextInt();
 
         int value = 0;
-        while((int) (Math.pow(2, value)) < N) {
+        int length = N;
+        while(length != 0) {
+            length /= 2;
             value++;
         }
         int limit = (int) (Math.pow(2, value));

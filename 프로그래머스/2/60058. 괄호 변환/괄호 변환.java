@@ -1,16 +1,11 @@
 import java.util.*;
 
 class Solution {
-    
-    private int splitIdx = -1;
-    
     public String solution(String p) {
         if (p.isEmpty()) {
             return p;
         }
-        
-        split(p);
-        
+        int splitIdx = split(p);
         String u = p.substring(0, splitIdx);
         String v = p.substring(splitIdx, p.length());
         
@@ -20,18 +15,19 @@ class Solution {
         
         StringBuilder sb = new StringBuilder();
         sb.append("(").append(solution(v)).append(")");
-        for(int i = 1; i < u.length() -1; i++) {
-            char c = u.charAt(i);
-            if (c == ')') {
-                sb.append("(");
-            } else {
+        for(int i = 1; i < u.length() - 1; i++) {
+            if (u.charAt(i) == '(') {
                 sb.append(")");
+            } else {
+                sb.append("(");
             }
         }
+        
         return sb.toString();
     }
     
-    private void split(String str) {
+    private int split(String str) {
+        int splitIdx = -1;
         int open = 0;
         int close = 0;
         char[] arr = str.toCharArray();
@@ -43,9 +39,10 @@ class Solution {
             }
             if (open == close) {
                 splitIdx = i + 1;
-                return ;
+                break;
             }
         }
+        return splitIdx;
     }
     
     private boolean isCorrect(String str) {

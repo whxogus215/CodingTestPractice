@@ -1,17 +1,38 @@
+-- 코드를 작성해주세요
+
+-- (1) 물고기 종류 별로 가장 큰 길이를 갖는 테이블 추출
+
+# SELECT
+#     FISH_TYPE,
+#     MAX(LENGTH)
+# FROM
+#     FISH_INFO AS F
+# WHERE
+#     LENGTH IS NOT NULL
+# GROUP BY
+#     FISH_TYPE
+
+
+
+-- (1)과 FISH_INFO 조인
+
 SELECT
-    ID,
-    FISH_NAME,
-    LENGTH
+    FI.ID,
+    FNI.FISH_NAME,
+    FI.LENGTH
 FROM
-    FISH_INFO as F
+    FISH_INFO AS FI
 JOIN
-    FISH_NAME_INFO as N ON F.FISH_TYPE = N.FISH_TYPE
+    FISH_NAME_INFO AS FNI ON FI.FISH_TYPE = FNI.FISH_TYPE
+JOIN
+    (SELECT
+        FISH_TYPE,
+        MAX(LENGTH) AS MAX_LENGTH
+    FROM
+        FISH_INFO
+    WHERE
+        LENGTH IS NOT NULL
+    GROUP BY
+        FISH_TYPE) AS F ON FI.FISH_TYPE = F.FISH_TYPE 
 WHERE
-    LENGTH = (
-        SELECT
-            MAX(LENGTH)
-        FROM FISH_INFO
-        WHERE FISH_TYPE = F.FISH_TYPE
-    )
-ORDER BY
-    ID ASC;
+    FI.LENGTH = F.MAX_LENGTH

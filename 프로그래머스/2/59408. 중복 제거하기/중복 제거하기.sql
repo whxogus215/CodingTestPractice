@@ -1,15 +1,12 @@
 -- 코드를 입력하세요
 SELECT
-    COUNT(T.NAME)
+    COUNT(A.COUNT)
 FROM
-    (
-    SELECT
-        NAME
+    (SELECT
+        COUNT(*) AS COUNT
     FROM
         ANIMAL_INS
     WHERE
         NAME IS NOT NULL
     GROUP BY
-        NAME
-    ) as T
-;
+        NAME) AS A;

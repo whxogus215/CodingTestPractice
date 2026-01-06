@@ -4,8 +4,7 @@ import java.io.*;
 
 class Main {
 
-    private static final Long DIV = 1_000_000_007L;
-    
+    private static final int MOD = 1_000_000_007;
     private static long[] tree;
     private static int offset;
     
@@ -17,65 +16,58 @@ class Main {
 
         int length = N;
         int depth = 0;
-        while(length != 0) {
+        while(length > 0) {
             length /= 2;
             depth += 1;
         }
-
         offset = (int) (Math.pow(2, depth));
         tree = new long[2 * offset];
-        Arrays.fill(tree, 1L);
+        Arrays.fill(tree, 1);
         for(int i = 0; i < N; i++) {
-            tree[offset + i] = sc.nextLong();
+            tree[i + offset] = sc.nextInt();
         }
-
+        
         // 세그먼트 트리 초기화
-        initialize();
+        for(int i = tree.length - 1; i > 1; i--) {
+            tree[i / 2] = (tree[i / 2] * tree[i]) % MOD;
+        }
 
         for(int i = 1; i <= M + K; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
-            long c = sc.nextLong();
+            int c = sc.nextInt();
 
             if (a == 1) {
-                // b번째 수를 c로 변경
                 change(b, c);
             } else {
-                // b부터 c까지의 곱을 출력
-                printMulti(b, (int) c);
+                print(b, c);
             }
         }
     }
 
-    private static void initialize() {
-        for(int i = tree.length - 1; i > 1; i--) {
-            tree[i / 2] = tree[i / 2] * tree[i] % DIV;
-        }
-    }
-    
-    private static void change(int b, long c) {
-        int startIdx = offset + b - 1; 
-        tree[startIdx] = c;
-        while(startIdx > 1) {
-            startIdx /= 2;
-            tree[startIdx] = (tree[startIdx * 2 + 1] * tree[startIdx * 2]) % DIV;
+    private static void change(int pos, int value) {
+        int idx = offset + pos - 1;
+        tree[idx] = value;
+        while(idx > 1) {
+            idx /= 2;
+            tree[idx] = (tree[idx * 2] * tree[idx * 2 + 1]) % MOD;
         }
     }
 
-    private static void printMulti(int b, int c) {
-        int startIdx = offset + b - 1;
-        int endIdx = offset + c - 1;
-        long result = 1;
-        while(startIdx <= endIdx) {
-            if (startIdx % 2 == 1) {
-                result = result * tree[startIdx] % DIV;
+    private static void print(int from, int to) {
+        int start = offset + from - 1;
+        int end = offset + to - 1;
+        long sum = 1;
+        while(start <= end) {
+            if (start % 2 == 1) {
+                sum = (sum * tree[start]) % MOD;
             }
-            if (endIdx % 2 == 0) {
-                result = result * tree[endIdx] % DIV;
+            if (end % 2 == 0) {
+                sum = (sum * tree[end]) % MOD;
             }
-            startIdx = (startIdx + 1) / 2;
-            endIdx = (endIdx - 1) / 2;
+            start = (start + 1) / 2;
+            end = (end - 1) / 2;
         }
-        System.out.println(result);
+        System.out.println(sum);
     }
 }

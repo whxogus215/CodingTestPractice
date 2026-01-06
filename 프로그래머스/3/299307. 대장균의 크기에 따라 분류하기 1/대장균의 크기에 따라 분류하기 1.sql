@@ -1,0 +1,13 @@
+-- 코드를 작성해주세요
+SELECT
+    ID,
+    (CASE
+        WHEN A.SIZE_OF_COLONY <= 100
+        THEN 'LOW'
+        WHEN A.SIZE_OF_COLONY > 100 AND A.SIZE_OF_COLONY <= 1000
+        THEN 'MEDIUM'
+        ELSE 'HIGH'
+    END) AS SIZE
+FROM ECOLI_DATA AS A
+ORDER BY
+    A.ID ASC;

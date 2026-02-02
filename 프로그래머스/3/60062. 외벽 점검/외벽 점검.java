@@ -1,67 +1,67 @@
-import java.util.*;
-
 class Solution {
     
-    private final int FRIEND_MAX = 9; 
-    private int needFriendCount = FRIEND_MAX;
-    
-    private int[] dist;
     private int[] weak;
-    private int[] weakExpanded;
+    private int[] dist;
+    private int[] expandedWeak;
     private boolean[] visited;
+    
+    private int answer = Integer.MAX_VALUE;
     
     public int solution(int n, int[] weak, int[] dist) {
         this.weak = weak;
         this.dist = dist;
-        
-        // 원형 배열을 선형 배열로 변환
-        this.weakExpanded = new int[2 * weak.length];
-        for(int i = 0; i < weak.length; i++) {
-            weakExpanded[i] = weak[i];
-            weakExpanded[i + weak.length] = weak[i] + n;
+        int weakNum = weak.length;
+        expandedWeak = new int[weakNum * 2];
+        visited = new boolean[dist.length];
+        for(int i = 0; i < weakNum; i++) {
+            expandedWeak[i] = weak[i];
+            expandedWeak[i + weakNum] = weak[i] + n;
         }
         
-        // 순열 -> 각 순열마다 완전탐색하기
-        this.visited = new boolean[dist.length];
-        dfs(new int[dist.length], 0);
+        // 각 순열마다 weak 지점을 시작점으로 하는 완전탐색을 수행
+        dfs(0, new int[dist.length]);
         
-        if (needFriendCount == FRIEND_MAX) {
+        // 원형을 선형으로 변환
+        
+        if (answer == Integer.MAX_VALUE) {
             return -1;
         }
-        return needFriendCount;
+        return answer;
     }
     
-    private void dfs(int[] result, int depth) {
-        if (depth == dist.length) {
-            simulate(result);
+    private void dfs(int idx, int[] result) {
+        if (idx == dist.length) {
+            // 각 조합에 대해 탐색 시작
+            search(result);
             return ;
         }
         for(int i = 0; i < dist.length; i++) {
             if (visited[i]) {
                 continue;
             }
-            result[depth] = dist[i];
             visited[i] = true;
-            dfs(result, depth + 1);
+            result[idx] = dist[i];
+            dfs(idx + 1, result);
             visited[i] = false;
         }
     }
     
-    private void simulate(int[] friendOrder) {
-        for(int start = 0; start < weak.length; start++) {
-            int cursor = start;
-            int friendCount = 0;
-            for(int i = 0; i < friendOrder.length; i++) {
-                int end = weakExpanded[cursor] + friendOrder[i];
-                while(cursor < weakExpanded.length && weakExpanded[cursor] <= end) {
-                    cursor++;
+    private void search(int[] friendOrder) {
+        for(int i = 0; i < weak.length; i++) {
+            int cursor = i;
+            int num = 0;
+            for(int j = 0; j < friendOrder.length; j++) {
+                int end = expandedWeak[cursor] + friendOrder[j];
+                while(cursor < expandedWeak.length && expandedWeak[cursor] <= end) {
+                    cursor++;   
                 }
-                friendCount++;
-                if (cursor - start >= weak.length) {
-                    needFriendCount = Math.min(needFriendCount, friendCount);
+                num++;
+                if (cursor - i >= weak.length) {
+                    answer = Math.min(answer, num);
                     break;
                 }
             }
         }
+        
     }
 }
